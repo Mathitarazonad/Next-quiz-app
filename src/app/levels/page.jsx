@@ -1,5 +1,4 @@
 import LevelButton from '@/components/LevelButton';
-import React from 'react';
 import levels from '../../data/levels.json';
 
 export default function LevelsMenu() {
