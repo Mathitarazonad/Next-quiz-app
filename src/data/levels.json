@@ -2,7 +2,7 @@
   {
     "index": 0,
     "level" : 1,
-    "easy" : ["Work", "Play", "Milk", "Game", "Years"],
+    "easy" : ["Work", "Play", "Milk", "Game", "Year"],
     "medium" : ["Space", "Apple", "Water", "Beach", "Arrow"],
     "hard": ["Finger", "Little", "Combat", "Cloudy", "Health"]
   }
