@@ -1,13 +1,25 @@
 'use client'
 import { checkCharacters } from "@/functions/wordFunctions";
-import { useState } from "react"
+import { useState } from "react";
+import WordError from "./WordError";
+
+const checkIfWordExists = async (word) => {
+  const apiURL = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+  const response = await fetch(apiURL);
+  if (response.ok) {
+    return response.json()
+  } else if (response.status === 404) {
+    return false;
+  }
+}
 
 export default function SingleWord({word}) {
-  let [letters, setLetters] = useState(Array(word.length).fill(''));
+  const [letters, setLetters] = useState(Array(word.length).fill(''));
   const [completed, setCompleted] = useState(false);
-  let [charClues, setCharClues] = useState(Array(word.length).fill(0));
+  const [charClues, setCharClues] = useState(Array(word.length).fill(0));
+  const [error, setError] = useState(false);
 
-  const handleChange = (e, index) => {
+  const handleChange = async (e, index) => {
     const letter = e.target.value;
     const newLetters = letters;
     newLetters[index] = index === 0 ? letter.toUpperCase() : letter.toLowerCase();
@@ -16,11 +28,20 @@ export default function SingleWord({word}) {
     //If user guess a word
     if (!letters.some(l => l === '') && letters.join('') === word) {
       setCompleted(true);
-      setCharClues(Array(word.length).fill(3))
+      setCharClues(Array(word.length).fill(3));
+
     } else if (!letters.some(l => l === '')){
-      setCharClues(checkCharacters(word, letters));
+      const response = await checkIfWordExists(letters.join(''))
+        if (response) {
+          //Only gives clues when the word that user wrote exists
+          setCharClues(checkCharacters(word, letters));
+        } else {
+          setError(true);
+        }
+
     } else {
       setCharClues(Array(word.length).fill(0));
+      setError(false);
     }
   }
 
@@ -36,6 +57,7 @@ export default function SingleWord({word}) {
           : charClues[index] === 3 ? 'single-input correct' 
           : 'single-input'}/>
       )}
+      {error && <WordError />}
     </div>
     <style jsx>{`
       .single-input.none {
