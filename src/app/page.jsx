@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
       <div className='menu-container'>
         <h1>Word Quiz App</h1>
         <Image src='/first-logo.PNG' alt='Word Quiz App Logo' className='word-quiz-logo' width='200' height='200'/>
-        <button className='play-btn'>Play</button>
+        <Link href='/levels'><button className='play-btn'>Play</button></Link>
       </div>
     </main>
   )
