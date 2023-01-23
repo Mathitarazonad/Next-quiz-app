@@ -1,6 +1,6 @@
 'use client'
-import { checkCharacters } from "@/functions/wordFunctions";
-import { useState } from "react";
+import { checkCharacters, manageFocus } from "@/functions/wordFunctions";
+import { useEffect, useRef, useState } from "react";
 import WordError from "./WordError";
 
 const checkIfWordExists = async (word) => {
@@ -14,27 +14,35 @@ const checkIfWordExists = async (word) => {
 }
 
 export default function SingleWord({word}) {
-  const [letters, setLetters] = useState(Array(word.length).fill(''));
+  const [characters, setCharacters] = useState(Array(word.length).fill(''));
   const [completed, setCompleted] = useState(false);
   const [charClues, setCharClues] = useState(Array(word.length).fill(0));
   const [error, setError] = useState(false);
+  const inputs = characters.map(input => useRef(null));
+  const [charsForInputChange, setCharsForInputChange] = useState(Array(word.length).fill(''));
 
   const handleChange = async (e, index) => {
-    const letter = e.target.value;
-    const newLetters = letters;
-    newLetters[index] = index === 0 ? letter.toUpperCase() : letter.toLowerCase();
-    setLetters([...newLetters]);
+    const character = e.target.value;
+    const newCharacters = characters;
+    newCharacters[index] = index === 0 ? character.toUpperCase() : character.toLowerCase();
+    setCharacters([...newCharacters]);
+  }
 
-    //If user guess a word
-    if (!letters.some(l => l === '') && letters.join('') === word) {
+  //Handler to change to the next input or the previous based on character introduced
+  const handleKey = (e, index) => {
+    manageFocus(e, characters, charsForInputChange, inputs, index, setCharacters, setCharsForInputChange);
+  }
+
+  const checkWord = async () => {
+    //If user guess the word
+    if (!characters.some(l => l === '') && characters.join('') === word) {
       setCompleted(true);
       setCharClues(Array(word.length).fill(3));
-
-    } else if (!letters.some(l => l === '')){
-      const response = await checkIfWordExists(letters.join(''))
+    } else if (!characters.some(l => l === '')){
+      //Only gives clues when the word that user wrote exists
+      const response = await checkIfWordExists(characters.join(''))
         if (response) {
-          //Only gives clues when the word that user wrote exists
-          setCharClues(checkCharacters(word, letters));
+          setCharClues(checkCharacters(word, characters));
         } else {
           setError(true);
         }
@@ -45,13 +53,18 @@ export default function SingleWord({word}) {
     }
   }
 
+  useEffect(() => {
+      checkWord();
+  }, [characters])
+
   return (
     <>
     <div className='single-word-container' style={{display: 'flex', gap: 5}}>
-      {word.split('').map((letter, index) => 
+      {word.split('').map((character, index) => 
         <input minLength={1} maxLength={1} disabled={completed ? true : false}
-          name={`input-${index}`} key={`${letter}${index}`}
-          style={{width: 50, height:50}} value={letters[index]} onChange={(e) => handleChange(e, index)}
+          name={`input-${index}`} key={`${character}${index}`} ref={inputs[index]}
+          style={{width: 50, height:50}} value={characters[index]} onChange={(e) => handleChange(e, index)}
+          onKeyUp={(e) => handleKey(e, index)}
           className={charClues[index] === 1 ? 'single-input none' 
           : charClues[index] === 2 ? 'single-input in-word' 
           : charClues[index] === 3 ? 'single-input correct' 
