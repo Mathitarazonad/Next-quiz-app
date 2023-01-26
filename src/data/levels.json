@@ -5,5 +5,26 @@
     "easy" : ["Work", "Play", "Milk", "Game", "Year"],
     "medium" : ["Space", "Apple", "Water", "Beach", "Arrow"],
     "hard": ["Finger", "Little", "Combat", "Cloudy", "Health"]
+  },
+  {
+    "index": 1,
+    "level" : 2,
+    "easy" : ["Fist", "Stop", "Tree", "Ride", "Iron"],
+    "medium" : ["Ocean", "Train", "Write", "Close", "Civil"],
+    "hard": ["Dolphin", "Emotion", "Phrases", "Strings", "Accords"]
+  },
+  {
+    "index": 2,
+    "level" : 3,
+    "easy" : ["Jump", "Lost", "True", "Mind", "Rude"],
+    "medium" : ["Grass", "Bunny", "Party", "Rugby", "Storm"],
+    "hard": ["Doctor", "Little", "Accord", "Sponge", "Suffix"]
+  },
+  {
+    "index": 3,
+    "level" : 4,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Doctor", "Little", "Accord", "Sponge", "Suffix"]
   }
 ]
