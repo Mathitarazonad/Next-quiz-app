@@ -4,7 +4,7 @@ import LevelButton from '@/components/LevelButton';
 
 export default function LevelsMenu() {
   return (
-    <div className='levels-menu-container'>
+    <div className='levels-selection-container'>
       <BackButton path='/'/>
       <h2>Level Selection</h2>
       <div className='levels-list'>
