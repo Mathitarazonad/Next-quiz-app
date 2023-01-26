@@ -1,15 +1,13 @@
-import levels from '@/data/levels.json';
-import SingleWord from '@/components/SingleWord';
 import BackButton from '@/components/BackButton';
+import Words from '@/components/Words';
 
-export default function page({params}) {
+export default function page({ params }) {
   const {level, difficulty} = params;
-  const words = levels[level-1][difficulty];
 
   return (
-    <div className='words-container'>
+    <div className='level-container'>
       <BackButton path={`/levels/${level}`} />
-      {words.map(word => <SingleWord word={word}/>)}
+      <Words level={level} difficulty={difficulty}/>
     </div>
   )
 }
