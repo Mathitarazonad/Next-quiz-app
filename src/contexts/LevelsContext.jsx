@@ -1,19 +1,13 @@
 "use client"
-import { createContext, useState } from 'react';
-
+import { createContext, useReducer } from 'react';
+import { levelReducer, Levels } from '@/reducers/levelReducer';
 export const LevelsContext = createContext();
 
 export default function LevelsProvider({children}) {
-  const [levelsPassed, setLevelsPassed] = useState([]);
-  const [difficultiesCompleted, setDifficultiesCompleted] = useState([]);
+  const [levels, dispatch] = useReducer(levelReducer, Levels);
 
   return (
-    <LevelsContext.Provider value={{
-      levelsPassed, 
-      setLevelsPassed, 
-      difficultiesCompleted,
-      setDifficultiesCompleted
-    }}>
+    <LevelsContext.Provider value={{levels, dispatch}}>
       {children}
     </LevelsContext.Provider>
   )
