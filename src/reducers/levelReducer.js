@@ -1,4 +1,5 @@
 import levelsData from '@/data/levels.json';
+import types from './types';
 
 export const initialState = [];
 
@@ -15,7 +16,7 @@ export const levelReducer = (state, action) => {
   const currentLevel = state[level - 1];
 
   switch (action.type) {
-    case 'ADD_COMPLETED_DIFFICULTY': {
+    case types.completeDifficulty: {
       const newDifficulties = [
         ...currentLevel.completedDifficulties,
         difficulty,
@@ -30,7 +31,7 @@ export const levelReducer = (state, action) => {
           : lvl
       );
     }
-    case 'SET_COMPLETED_LEVEL': {
+    case types.completeLevel: {
       const newState = !currentLevel.isCompleted;
       return state.map((lvl, index) => index === level-1 ? {
         level: lvl.level,
