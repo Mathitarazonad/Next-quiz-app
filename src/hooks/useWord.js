@@ -28,7 +28,7 @@ export const useWord = ({word, level, difficulty}) => {
 
   const updateInput = (e, index) => {
     const character = e.target.value;
-    const newCharacters = characters;
+    const newCharacters = [...characters];
     newCharacters[index] = index === 0 ? character.toUpperCase() : character.toLowerCase();
     setCharacters([...newCharacters]);
   }
@@ -38,7 +38,7 @@ export const useWord = ({word, level, difficulty}) => {
       //Only if character is a Unicode letter
       if ((keyCode >= 65 && keyCode <= 90) || (keyCode === 8)){
         const keyCharacter = e.key.toLowerCase();
-        const newArr = charsForFocusChange;
+        const newArr = [...charsForFocusChange];
         const searchEmptyInput = (inputs, currentIndex) => inputs.some(input => input === '') ? inputs.indexOf('', currentIndex) : currentIndex;
     
         //If user deletes a character at some input that is not the first, delete it and 
@@ -56,13 +56,13 @@ export const useWord = ({word, level, difficulty}) => {
         } else if (keyCode !== 8 && index !== characters.length-1 && charsForFocusChange[index] === ''){
           inputs[searchEmptyInput(characters, index)].current.focus();
           newArr[index] = index === 0 ? keyCharacter.toUpperCase() : keyCharacter;
-          setCharsForFocusChange([...newArr]);
-    
+          setCharsForFocusChange(newArr);
+          setCharacters(newArr);
           //When user writes in an input that already have a character, change the next available space for that character and jump to the first available space.
         } else if (keyCode !== 8 && index !== characters.length-1 && charsForFocusChange[index] !== '') {
           newArr[searchEmptyInput(characters, index)] = keyCharacter;
-          setCharsForFocusChange([...newArr]);
-          setCharacters([...newArr]);
+          setCharsForFocusChange(newArr);
+          setCharacters(newArr);
           inputs[searchEmptyInput(characters, index)].current.focus();
         }
       }
