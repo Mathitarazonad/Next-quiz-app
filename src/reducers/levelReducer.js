@@ -21,11 +21,10 @@ export const levelReducer = (state, action) => {
         ...currentLevel.completedDifficulties,
         difficulty,
       ];
-      state.map((lvl, index) =>
+      return state.map((lvl, index) =>
         index === level - 1 
           ? {
-              level: lvl.level,
-              isCompleted: lvl.isCompleted,
+              ...lvl,
               completedDifficulties: newDifficulties,
             }
           : lvl
@@ -34,9 +33,8 @@ export const levelReducer = (state, action) => {
     case types.completeLevel: {
       const newState = !currentLevel.isCompleted;
       return state.map((lvl, index) => index === level-1 ? {
-        level: lvl.level,
+        ...lvl,
         isCompleted: newState,
-        completedDifficulties: newDifficulties,
       } : lvl)
     }
     default:
