@@ -68,7 +68,7 @@ export const useWord = ({word, level, difficulty}) => {
       }
   }
 
-  const checkWord = async () => {
+  const checkForClues = async () => {
     //If user guess the word
     if (!characters.some(l => l === '') && characters.join('') === word) {
       setCompleted(true);
@@ -121,7 +121,7 @@ export const useWord = ({word, level, difficulty}) => {
   }
 
   useEffect(() => {
-    checkWord();
+    checkForClues();
   }, [characters])
     
   return {
