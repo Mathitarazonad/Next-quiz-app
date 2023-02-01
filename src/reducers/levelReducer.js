@@ -6,6 +6,7 @@ export const initialState = [];
 for (let i = 0; i < levelsData.length; i++) {
   initialState.push({
     level: i + 1,
+    isUnlocked: i === 0 ? true : false,
     isCompleted: false,
     completedDifficulties: [], // 1-Easy  2-Normal  3-Hard
   });
@@ -22,7 +23,7 @@ export const levelReducer = (state, action) => {
         difficulty,
       ];
       return state.map((lvl, index) =>
-        index === level - 1 
+        index === level - 1
           ? {
               ...lvl,
               completedDifficulties: newDifficulties,
@@ -32,10 +33,25 @@ export const levelReducer = (state, action) => {
     }
     case types.completeLevel: {
       const newState = !currentLevel.isCompleted;
-      return state.map((lvl, index) => index === level-1 ? {
-        ...lvl,
-        isCompleted: newState,
-      } : lvl)
+      return state.map((lvl, index) =>
+        index === level - 1
+          ? {
+              ...lvl,
+              isCompleted: newState,
+            }
+          : lvl
+      );
+    }
+    case types.unlockLevel: {
+      const newState = !currentLevel.isUnlocked;
+      return state.map((lvl, index) =>
+        index === level - 1
+          ? {
+              ...lvl,
+              isUnlocked: newState,
+            }
+          : lvl
+      );
     }
     default:
       return state;
