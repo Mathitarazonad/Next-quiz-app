@@ -24,14 +24,14 @@ export const useWord = ({word, level, difficulty}) => {
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''));
   //Contexts
   const {completedWords, setCompletedWords} = useContext(WordsContext);
-  const {dispatch} = useContext(LevelsContext);
+  const {levels, dispatch, setNewLevelUnlocked} = useContext(LevelsContext);
 
   const updateInput = (e, index) => {
     const character = e.target.value;
     const newCharacters = [...characters];
     newCharacters[index] = index === 0 ? character.toUpperCase() : character.toLowerCase();
     setCharacters([...newCharacters]);
-  }
+  } //Input value management
    
   const manageFocus = (e, index) =>{
       const keyCode = e.keyCode;
@@ -66,7 +66,7 @@ export const useWord = ({word, level, difficulty}) => {
           inputs[searchEmptyInput(characters, index)].current.focus();
         }
       }
-  }
+  } //Input focus change management
 
   const checkForClues = async () => {
     //If user guess the word
@@ -90,7 +90,7 @@ export const useWord = ({word, level, difficulty}) => {
       setCharClues(Array(word.length).fill(0));
       setError(false);
     }
-  }
+  } //Type of clues giving management
 
   const completeDifficulty = () => {
     if (difficulty === 'easy') {
@@ -98,7 +98,7 @@ export const useWord = ({word, level, difficulty}) => {
         type: types.completeDifficulty,
         payload: {
           difficulty: 1,
-          level: level,
+          level,
         }
       })
     } else if (difficulty ==='medium') {
@@ -106,7 +106,7 @@ export const useWord = ({word, level, difficulty}) => {
         type: types.completeDifficulty,
         payload: {
           difficulty: 2,
-          level: level,
+          level,
         }
       })
     } else if (difficulty === 'hard') {
@@ -123,6 +123,26 @@ export const useWord = ({word, level, difficulty}) => {
   useEffect(() => {
     checkForClues();
   }, [characters])
+
+  useEffect(() => {
+    if (levels[level-1].completedDifficulties.length === 3) {
+      dispatch({
+        type: types.completeLevel,
+        payload : {level, difficulty: undefined}
+      });
+      dispatch({
+        type: types.unlockLevel,
+        payload : {level, difficulty: undefined}
+      });
+
+    }
+  }, [levels[level-1].completedDifficulties])
+  
+  useEffect(() => {
+    if (levels[level-1].isCompleted) {
+      setNewLevelUnlocked(true);
+    }
+  }, [levels[level-1].isCompleted])
     
   return {
     characters,
@@ -131,6 +151,7 @@ export const useWord = ({word, level, difficulty}) => {
     error,
     inputs,
     updateInput,
-    manageFocus
+    manageFocus,
+    levels
   }
 }
