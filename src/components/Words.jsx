@@ -18,7 +18,7 @@ export default function Words({ level, difficulty }) {
             word={word}
             key={word}
             level={level}
-            difficulty={difficulty}
+            difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3}
           />
         ))}
         {newLevelUnlocked && <LevelUnlocked />} {/*Alert the user that a new level has been unlocked*/}

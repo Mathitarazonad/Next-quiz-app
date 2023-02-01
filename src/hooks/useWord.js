@@ -93,31 +93,10 @@ export const useWord = ({word, level, difficulty}) => {
   } //Type of clues giving management
 
   const completeDifficulty = () => {
-    if (difficulty === 'easy') {
-      dispatch({
-        type: types.completeDifficulty,
-        payload: {
-          difficulty: 1,
-          level,
-        }
-      })
-    } else if (difficulty ==='medium') {
-      dispatch({
-        type: types.completeDifficulty,
-        payload: {
-          difficulty: 2,
-          level,
-        }
-      })
-    } else if (difficulty === 'hard') {
-      dispatch({ 
-        type: types.completeDifficulty,
-        payload: {
-          difficulty: 3,
-          level: level,
-        }
-      })
-    }
+    dispatch({
+      type: types.completeDifficulty,
+      payload: {level, difficulty}
+    })
   }
 
   useEffect(() => {
@@ -128,7 +107,7 @@ export const useWord = ({word, level, difficulty}) => {
     if (levels[level-1].completedDifficulties.length === 3) {
       dispatch({
         type: types.completeLevel,
-        payload : {level, difficulty: undefined}
+        payload : {level, difficulty}
       });
       dispatch({
         type: types.unlockLevel,
