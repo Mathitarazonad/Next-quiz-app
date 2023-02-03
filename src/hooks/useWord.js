@@ -5,11 +5,10 @@ import { checkCharacters } from "@/functions/wordFunctions";
 import { WordsContext } from "@/contexts/WordsContext";
 
 const checkIfWordExists = async (word) => { 
-  const apiURL = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-  const response = await fetch(apiURL);
-  if (response.ok) {
-    return response.json()
-  }
+  const url = `/api/dictionary?word=${word}`
+  const data = await fetch(url).then(data => data.json());
+  console.log(data)
+  return data;
 }
 
 export const useWord = ({word, level, difficulty}) => {
