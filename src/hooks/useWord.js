@@ -7,7 +7,6 @@ import { WordsContext } from "@/contexts/WordsContext";
 const checkIfWordExists = async (word) => { 
   const url = `/api/dictionary?word=${word}`
   const data = await fetch(url).then(data => data.json());
-  console.log(data)
   return data;
 }
 
@@ -98,27 +97,34 @@ export const useWord = ({word, level, difficulty}) => {
     })
   }
 
+  const completeLevel = () => {
+    dispatch({
+      type: types.completeLevel,
+      payload : {level, difficulty}
+    });
+  }
+
+  const unlockLevel = () => {
+    dispatch({
+      type: types.unlockLevel,
+      payload : {level, difficulty}
+    });
+    setNewLevelUnlocked(true);
+  }
+
   useEffect(() => {
     checkForClues();
   }, [characters])
 
   useEffect(() => {
     if (levels[level-1].completedDifficulties.length === 3) {
-      dispatch({
-        type: types.completeLevel,
-        payload : {level, difficulty}
-      });
-      dispatch({
-        type: types.unlockLevel,
-        payload : {level, difficulty: undefined}
-      });
-
+      completeLevel();
     }
   }, [levels[level-1].completedDifficulties])
   
   useEffect(() => {
-    if (levels[level-1].isCompleted) {
-      setNewLevelUnlocked(true);
+    if (levels[level-1].isCompleted && !levels[level].isUnlocked) {
+      unlockLevel();
     }
   }, [levels[level-1].isCompleted])
     
