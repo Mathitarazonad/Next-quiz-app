@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CharacterInput({characters, inputRef, index, handleChange, handleKey, completed, charClues}) {
+export default function CharacterInput({characters, inputRef, index, completed, charClues, handleChange, handleKey, }) {
   return (
     <>
       <input minLength={1} maxLength={1} 
