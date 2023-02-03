@@ -43,9 +43,9 @@ export const levelReducer = (state, action) => {
       );
     }
     case types.unlockLevel: {
-      const newState = !currentLevel.isUnlocked;
+      const newState = true;
       return state.map((lvl, index) =>
-        index === level //level === index + 1 (Next level)
+        index == level //level === index + 1 (Next level)
           ? {
               ...lvl,
               isUnlocked: newState,
