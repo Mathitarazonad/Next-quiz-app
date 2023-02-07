@@ -4,7 +4,7 @@ export default function CharacterInput({characters, inputRef, index, completed, 
   return (
     <>
       <input minLength={1} maxLength={1} 
-         disabled={completed ? true : false}
+        disabled={completed ? true : false}
         ref={inputRef}
         style={{width: 50, height:50}} //Temporal styles
         value={characters[index]} 

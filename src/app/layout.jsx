@@ -1,5 +1,6 @@
 import LevelsProvider from "@/contexts/LevelsContext"
 import CoinsProvider from "@/contexts/CoinsContext"
+import UserProvider from "@/contexts/UserContext"
 
 export default function RootLayout({ children }) {
   return (
@@ -7,9 +8,11 @@ export default function RootLayout({ children }) {
       <head />
       <body>
         <LevelsProvider>
-          <CoinsProvider>
-            {children}
-          </CoinsProvider>
+          <UserProvider>
+            <CoinsProvider>
+              {children}
+            </CoinsProvider>
+          </UserProvider>
         </LevelsProvider> 
       </body>
     </html>
