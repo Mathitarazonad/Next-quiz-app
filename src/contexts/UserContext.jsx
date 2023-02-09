@@ -1,5 +1,5 @@
 'use client'
-import { createContext,useState, useContext, useEffect } from 'react';
+import { createContext,useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '@firebase/firebaseApp';
 
@@ -13,10 +13,12 @@ export default function UserProvider({children}) {
   }
 
   const signIn = (email, password) => {
-    return signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   }
 
-  const logout = () => signOut();
+  const logout = () => {
+    return signOut(auth);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
