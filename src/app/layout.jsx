@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head />
-      <body className='bg-zinc-200 font-poppins p-2'>
+      <body className='bg-zinc-200 font-poppins'>
         <LevelsProvider>
           <UserProvider>
             <CoinsProvider>
