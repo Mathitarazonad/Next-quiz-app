@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <div className='menu-container'>
         <h1>Word Quiz App</h1>
-        <Image src='/first-logo.PNG' alt='Word Quiz App Logo' className='word-quiz-logo' width='200' height='200'/>
+        <Image src='/first-logo.png' alt='Next Quiz App Logo' width='200' height='200'/>
         <Link href='/levels'><button className='play-btn'>Play</button></Link>
       </div>
     </main>
