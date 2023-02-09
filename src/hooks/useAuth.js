@@ -1,5 +1,4 @@
 import { UserContext } from '@/contexts/UserContext';
-import { getUserValidationError } from '@/functions/userValidations';
 import {useState, useContext} from 'react';
 
 export default function useAuth () {
@@ -19,6 +18,14 @@ export default function useAuth () {
       }
     } else {
       setError('Passwords do not match')
+    }
+  }
+
+  const getUserValidationError = (errorCode) => {
+    if (errorCode === 'auth/weak-password') {
+      return 'Password must be at least 6 characters long';
+    } else if (errorCode === 'auth/email-already-in-use') {
+      return 'Email is already in use';
     }
   }
 
