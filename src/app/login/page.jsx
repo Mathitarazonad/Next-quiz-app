@@ -6,6 +6,7 @@ import PasswordInput from '@/components/RegisterComponents/PasswordInput';
 import Alert from '@/components/RegisterComponents/Alert';
 import useAuth from '@/hooks/useAuth';
 import React from 'react';
+import SubmitButton from '@/components/RegisterComponents/SubmitButton';
 
 export default function LoginPage() {
   const {error, handleCloseError, hiddenPassword, setHiddenPassword, handleSignIn} = useAuth()
@@ -40,12 +41,7 @@ export default function LoginPage() {
       onSubmit={(e) => handleSubmit(e)}>
         <EmailInput />
         <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword}/>
-        <button
-          type='submit'
-          className='bg-violet-500 bg-opacity-90 w-full py-2 rounded-md text-white font-semibold'
-        >
-          Sign In
-        </button>
+        <SubmitButton>Sign In</SubmitButton>
       </form>
     </div>
   )

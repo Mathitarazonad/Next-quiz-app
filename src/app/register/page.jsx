@@ -6,6 +6,7 @@ import PasswordConfirmationInput from '@/components/RegisterComponents/PasswordC
 import EmailInput from '@/components/RegisterComponents/EmailInput';
 import Alert from '@/components/RegisterComponents/Alert';
 import useAuth from '@/hooks/useAuth';
+import SubmitButton from '@/components/RegisterComponents/SubmitButton';
 
 export default function RegisterPage() {
   const {error, handleCloseError, handleSignUp, hiddenPassword, setHiddenPassword} = useAuth();
@@ -41,12 +42,7 @@ export default function RegisterPage() {
         <EmailInput />
         <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp={true}/>
         <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
-        <button
-          type='submit'
-          className='bg-violet-500 bg-opacity-90 w-full py-2 rounded-md text-white font-semibold'
-        >
-          Sign Up
-        </button>
+        <SubmitButton>Sign Up</SubmitButton>
       </form>
     </div>
   );
