@@ -39,7 +39,7 @@ export default function RegisterPage() {
       <form className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full' 
       onSubmit={handleSubmit}>
         <EmailInput />
-        <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword}/>
+        <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp={true}/>
         <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
         <button
           type='submit'
