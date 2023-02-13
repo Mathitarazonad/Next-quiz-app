@@ -29,7 +29,7 @@ export default function LoginPage() {
         Sign In
       </h1>
       <p className='text-zinc-600 text-sm'>
-        Don't have an account yet?
+        {"Don't"} have an account yet?
         <Link href='/register' className='text-purple-500 font-bold'>
         {' '}Sign Up
         </Link>
