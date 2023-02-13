@@ -17,7 +17,7 @@ export const useWord = ({word, level, difficulty}) => {
   //State for the clues giving
   const [charClues, setCharClues] = useState(Array(word.length).fill(0));
   //State for input change with they unique references
-  const inputs = characters.map(input => useRef(null));
+  const inputs = useRef([]);
   //Helper state to change the focus
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''));
   //Contexts
@@ -41,7 +41,7 @@ export const useWord = ({word, level, difficulty}) => {
     
         //If user deletes a character at some input that is not the first, delete it and 
         if (keyCode === 8 && index !== 0) {
-          inputs[index - 1].current.focus();
+          inputs.current[index - 1].focus();
           newArr[index] = '';
           setCharsForFocusChange(newArr);
     
@@ -52,7 +52,7 @@ export const useWord = ({word, level, difficulty}) => {
     
           //If the space is available, use the character and jump to the next available space
         } else if (keyCode !== 8 && index !== characters.length-1 && charsForFocusChange[index] === ''){
-          inputs[searchEmptyInput(characters, index)].current.focus();
+          inputs.current[searchEmptyInput(characters, index)].focus();
           newArr[index] = index === 0 ? keyCharacter.toUpperCase() : keyCharacter;
           setCharsForFocusChange(newArr);
           setCharacters(newArr);
@@ -61,7 +61,7 @@ export const useWord = ({word, level, difficulty}) => {
           newArr[searchEmptyInput(characters, index)] = keyCharacter;
           setCharsForFocusChange(newArr);
           setCharacters(newArr);
-          inputs[searchEmptyInput(characters, index)].current.focus();
+          inputs.current[searchEmptyInput(characters, index)].focus();
         }
       }
   } //Input focus change management

@@ -1,11 +1,9 @@
-import React from 'react'
-
-export default function CharacterInput({characters, inputRef, index, completed, charClues, handleChange, handleKey, }) {
+export default function CharacterInput({characters, inputs, index, completed, charClues, handleChange, handleKey, }) {
   return (
     <>
       <input minLength={1} maxLength={1} 
         disabled={completed ? true : false}
-        ref={inputRef}
+        ref={(element) => {inputs.current[index] = element}}
         style={{width: 50, height:50}} //Temporal styles
         value={characters[index]} 
         onChange={(e) => handleChange(e, index)}
