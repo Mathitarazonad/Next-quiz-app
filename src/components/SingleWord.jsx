@@ -4,7 +4,7 @@ import CharacterInput from "./CharacterInput";
 import WordError from "./WordError";
 
 export default function SingleWord({word, level, difficulty}) {
-  const {characters, completed, charClues, inputs, error, manageFocus, updateInput, levels} = useWord({word, level, difficulty})
+  const {characters, completed, charClues, inputRefs, error, manageFocus, updateInput, levels} = useWord({word, level, difficulty})
 
   const handleChange = (e, index) => {
     updateInput(e, index)
@@ -20,8 +20,8 @@ export default function SingleWord({word, level, difficulty}) {
       {!levels[level-1].completedDifficulties.includes(difficulty) ? word.split('').map((character, index) => 
         <CharacterInput key={`${word}-${word[index]}-${index}`}
         characters={characters} 
-        inputRef={inputs[index]}
         index={index}
+        inputRefs={inputRefs}
         completed={completed} 
         charClues={charClues}
         handleChange={handleChange} handleKey={handleKey}/>
