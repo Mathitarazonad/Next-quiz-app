@@ -12,7 +12,11 @@ export default function useAuth () {
         if (error) {
           setError('');
         }
-        await signUp(email, password);
+        if (email && password && passwordConfirmation) {
+          await signUp(email, password);
+        } else {
+          setError('All fields are required');
+        }
       } catch (error) {
         setError(getUserValidationError(error.code))
       }
@@ -26,7 +30,11 @@ export default function useAuth () {
       if (error) {
         setError('');
       }
-      await signIn(email, password);
+      if (email && password) {
+        await signIn(email, password);
+      } else {
+        setError('All fields are required');
+      }
     } catch (error) {
       setError(getUserValidationError(error.code))
     }
