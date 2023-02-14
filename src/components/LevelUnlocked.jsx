@@ -2,8 +2,8 @@
 import { LevelsContext } from '@/contexts/LevelsContext'
 import { useContext } from 'react'
 
-export default function LevelUnlocked() {
-  const {setNewLevelUnlocked} = useContext(LevelsContext);
+export default function LevelUnlocked () {
+  const { setNewLevelUnlocked } = useContext(LevelsContext)
 
   return (
     <div className='level-unlocked-message'>

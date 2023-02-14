@@ -1,15 +1,15 @@
 'use client'
-import { UserAuth } from "@/contexts/UserContext"
-import { useRouter } from "next/navigation";
-import { useEffect } from "react"
+import { UserAuth } from '@/contexts/UserContext'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function ProtectedRoutes({children, path}) {
-  const {currentUser} = UserAuth();
-  const router = useRouter();
+export default function ProtectedRoutes ({ children, path }) {
+  const { currentUser } = UserAuth()
+  const router = useRouter()
 
   useEffect(() => {
     if (!currentUser) {
-      router.push(path);
+      router.push(path)
     }
   }, [router, currentUser])
 

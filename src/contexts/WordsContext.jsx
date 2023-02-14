@@ -1,13 +1,13 @@
 'use client'
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
 
-export const WordsContext = createContext();
+export const WordsContext = createContext()
 
-export default function WordsProvider({children}) {
-  const [completedWords, setCompletedWords] = useState(0);
+export default function WordsProvider ({ children }) {
+  const [completedWords, setCompletedWords] = useState(0)
 
   return (
-    <WordsContext.Provider value={{completedWords, setCompletedWords}}>
+    <WordsContext.Provider value={{ completedWords, setCompletedWords }}>
       {children}
     </WordsContext.Provider>
   )

@@ -1,7 +1,7 @@
-import CompletedDifficulties from "./CompletedDifficulties";
-import Link from "next/link";
+import CompletedDifficulties from './CompletedDifficulties'
+import Link from 'next/link'
 
-export default function LevelButton({children}) {
+export default function LevelButton ({ children }) {
   return (
     <Link href={`/levels/${children}`}>
       <div className='single-level-button'>

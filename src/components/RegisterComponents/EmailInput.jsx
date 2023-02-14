@@ -1,6 +1,6 @@
-import { FaUser } from "react-icons/fa";
+import { FaUser } from 'react-icons/fa'
 
-export default function EmailInput() {
+export default function EmailInput () {
   return (
     <div className='form-section'>
       <h2 className='input-title'>Enter an Email</h2>

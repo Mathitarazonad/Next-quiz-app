@@ -1,20 +1,20 @@
-'use client';
-import Link from 'next/link';
-import Image from 'next/image';
-import PasswordInput from '@/components/RegisterComponents/PasswordInput';
-import PasswordConfirmationInput from '@/components/RegisterComponents/PasswordConfirmationInput';
-import EmailInput from '@/components/RegisterComponents/EmailInput';
-import Alert from '@/components/RegisterComponents/Alert';
-import useAuth from '@/hooks/useAuth';
-import SubmitButton from '@/components/RegisterComponents/SubmitButton';
+'use client'
+import Link from 'next/link'
+import Image from 'next/image'
+import PasswordInput from '@/components/RegisterComponents/PasswordInput'
+import PasswordConfirmationInput from '@/components/RegisterComponents/PasswordConfirmationInput'
+import EmailInput from '@/components/RegisterComponents/EmailInput'
+import Alert from '@/components/RegisterComponents/Alert'
+import useAuth from '@/hooks/useAuth'
+import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 
-export default function RegisterPage() {
-  const {error, handleCloseError, handleSignUp, hiddenPassword, setHiddenPassword} = useAuth();
+export default function RegisterPage () {
+  const { error, handleCloseError, handleSignUp, hiddenPassword, setHiddenPassword } = useAuth()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password, passwordConfirmation } = Object.fromEntries(new window.FormData(e.target));
-    handleSignUp(email, password, passwordConfirmation);
+    e.preventDefault()
+    const { email, password, passwordConfirmation } = Object.fromEntries(new window.FormData(e.target))
+    handleSignUp(email, password, passwordConfirmation)
   }
 
   return (
@@ -31,19 +31,21 @@ export default function RegisterPage() {
       <p className='text-zinc-600 text-sm'>
         Already have an account?
         <Link href='/login' className='text-purple-500 font-bold'>
-        {' '}Sign In
+          {' '}Sign In
         </Link>
       </p>
 
-      {error && <Alert message={error} handleCloseError={handleCloseError}/>}
+      {error && <Alert message={error} handleCloseError={handleCloseError} />}
 
-      <form className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full' 
-      onSubmit={handleSubmit}>
+      <form
+        className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full'
+        onSubmit={handleSubmit}
+      >
         <EmailInput />
-        <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp={true}/>
+        <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp />
         <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
         <SubmitButton>Sign Up</SubmitButton>
       </form>
     </div>
-  );
+  )
 }

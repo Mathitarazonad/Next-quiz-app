@@ -1,4 +1,4 @@
-export default function SubmitButton({children}) {
+export default function SubmitButton ({ children }) {
   return (
     <button
       type='submit'
