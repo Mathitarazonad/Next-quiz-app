@@ -20,7 +20,7 @@ export default function RegisterPage () {
 
   return (
     <ProtectedRoutes path='/' authentication>
-      <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10'>
+      <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10 shadow-lg'>
         <Image
           src='/first-logo.png'
           width={200}
