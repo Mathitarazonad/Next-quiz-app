@@ -20,7 +20,7 @@ export default function RegisterPage () {
 
   return (
     <ProtectedRoutes path='/' authentication>
-      <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10 shadow-lg'>
+      <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10'>
         <Image
           src='/first-logo.png'
           width={200}
@@ -40,7 +40,7 @@ export default function RegisterPage () {
         {error && <Alert message={error} handleCloseError={handleCloseError} />}
 
         <form
-          className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full'
+          className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full shadow-lg'
           onSubmit={handleSubmit}
         >
           <EmailInput />

@@ -9,13 +9,13 @@ export default function PasswordInput ({ hiddenPassword, setHiddenPassword, isSi
         {hiddenPassword
           ? (
             <MdOutlineVisibilityOff
-              className='text-sm text-zinc-600 mr-[2px]'
+              className='text-sm text-zinc-600 mr-[2px] cursor-pointer'
               onPointerDown={() => setHiddenPassword(false)}
             />
             )
           : (
             <MdVisibility
-              className='text-sm text-zinc-600 mr-[2px]'
+              className='text-sm text-zinc-600 mr-[2px] cursor-pointer'
               onPointerUp={() => setHiddenPassword(true)}
             />
             )}
