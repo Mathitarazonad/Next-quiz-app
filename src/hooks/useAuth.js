@@ -6,14 +6,14 @@ export default function useAuth () {
   const [error, setError] = useState('')
   const { signUp, signIn, logout } = useContext(UserContext)
 
-  const handleSignUp = async (email, password, passwordConfirmation) => {
+  const handleSignUp = async (username, email, password, passwordConfirmation) => {
     if (password === passwordConfirmation) {
       try {
         if (error) {
           setError('')
         }
         if (email && password && passwordConfirmation) {
-          await signUp(email, password)
+          await signUp(username, email, password)
         } else {
           setError('All fields are required')
         }

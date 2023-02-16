@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useState, useEffect, useContext } from 'react'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { auth } from '@firebase/firebaseApp'
 import { useRouter } from 'next/navigation'
 
@@ -13,8 +13,9 @@ export default function UserProvider ({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const router = useRouter()
 
-  const signUp = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const signUp = async (username, email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(auth.currentUser, { displayName: username })
   }
 
   const signIn = (email, password) => {
@@ -27,11 +28,11 @@ export default function UserProvider ({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
       if (!user) {
         router.push('/login')
       }
       if (user) {
+        setCurrentUser(user)
         router.push('/')
       }
     })
