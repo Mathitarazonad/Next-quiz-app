@@ -8,14 +8,15 @@ import Alert from '@/components/RegisterComponents/Alert'
 import useAuth from '@/hooks/useAuth'
 import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
+import UsernameInput from '@/components/RegisterComponents/UsernameInput'
 
 export default function RegisterPage () {
   const { error, handleCloseError, handleSignUp, hiddenPassword, setHiddenPassword } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { email, password, passwordConfirmation } = Object.fromEntries(new window.FormData(e.target))
-    handleSignUp(email, password, passwordConfirmation)
+    const { username, email, password, passwordConfirmation } = Object.fromEntries(new window.FormData(e.target))
+    handleSignUp(username, email, password, passwordConfirmation)
   }
 
   return (
@@ -43,6 +44,7 @@ export default function RegisterPage () {
           className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full shadow-lg'
           onSubmit={handleSubmit}
         >
+          <UsernameInput />
           <EmailInput />
           <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp />
           <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
