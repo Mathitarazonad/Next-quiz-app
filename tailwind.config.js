@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'dark-violet-title': '#553285',
+        'semi-dark-violet': '#554769'
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']
       }
