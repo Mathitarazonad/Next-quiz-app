@@ -29,10 +29,14 @@ export default function UserProvider ({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
+        setCurrentUser(null)
         router.push('/login')
       }
       if (user) {
-        setCurrentUser(user)
+        setCurrentUser({
+          displayName: user.displayName,
+          email: user.email
+        })
         router.push('/')
       }
     })
