@@ -1,9 +1,9 @@
 import { HiOutlineMail } from 'react-icons/hi'
 
-export default function EmailInput () {
+export default function EmailInput ({ message }) {
   return (
     <div className='form-section'>
-      <h2 className='input-title'>Enter an Email</h2>
+      <h2 className='input-title'>{message}</h2>
       <div className='input-container'>
         <HiOutlineMail className='input-icon' />
         <input

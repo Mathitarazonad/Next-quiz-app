@@ -1,11 +1,11 @@
 import { FaLock } from 'react-icons/fa'
 import { MdOutlineVisibilityOff, MdVisibility } from 'react-icons/md'
 
-export default function PasswordInput ({ hiddenPassword, setHiddenPassword, isSignUp = false }) {
+export default function PasswordInput ({ hiddenPassword, setHiddenPassword, isSignUp = false, message }) {
   return (
     <div className='form-section'>
       <div className='flex justify-between w-full'>
-        <h2 className='input-title'>Your Password</h2>
+        <h2 className='input-title'>{message}</h2>
         {hiddenPassword
           ? (
             <MdOutlineVisibilityOff

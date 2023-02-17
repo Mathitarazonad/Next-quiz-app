@@ -43,8 +43,8 @@ export default function LoginPage () {
           className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full shadow-lg'
           onSubmit={(e) => handleSubmit(e)}
         >
-          <EmailInput />
-          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} />
+          <EmailInput message='Enter your email' />
+          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} message='Enter your password' />
           <SubmitButton>Sign In</SubmitButton>
         </form>
       </div>

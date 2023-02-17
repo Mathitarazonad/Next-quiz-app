@@ -45,8 +45,8 @@ export default function RegisterPage () {
           onSubmit={handleSubmit}
         >
           <UsernameInput />
-          <EmailInput />
-          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp />
+          <EmailInput message='Enter an email' />
+          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp message='Enter a Password' />
           <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
           <SubmitButton>Sign Up</SubmitButton>
         </form>
