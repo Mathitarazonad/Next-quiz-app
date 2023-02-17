@@ -8,7 +8,7 @@
     @apply w-full;
   }
   .input-container {
-    @apply border-solid border border-gray-500 flex items-center rounded-lg p-2 px-5 gap-2;
+    @apply border border-gray-500 flex items-center rounded-lg p-2 px-5 gap-2;
   }
   .input-icon {
     @apply text-gray-500 text-sm;
@@ -17,6 +17,6 @@
     @apply text-sm text-zinc-600 font-semibold mb-1;
   }
   .input {
-    @apply border  border-none focus:outline-none w-full text-gray-500 text-xs;
+    @apply border border-none focus:outline-none w-full text-gray-500 text-xs;
   }
 }
