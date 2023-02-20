@@ -1,10 +1,8 @@
 'use client'
-import { UserAuth } from '@/contexts/UserContext'
+import { useUser } from '@/contexts/UserContext'
 
-export default function LogoutButton () {
-  const { logout } = UserAuth()
+export default function LogoutButton() {
+  const { logout } = useUser()
 
-  return (
-    <button onClick={() => logout()}>Log out</button>
-  )
+  return <button onClick={() => logout()}>Log out</button>
 }
