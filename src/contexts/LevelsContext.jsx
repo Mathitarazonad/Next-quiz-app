@@ -1,8 +1,9 @@
 'use client'
 import { createContext, useContext, useReducer, useState } from 'react'
 import { initialState, levelReducer } from '@/reducers/levelReducer'
+
 export const LevelsContext = createContext()
-export function UseLevels () {
+export function useLevels () {
   return useContext(LevelsContext)
 }
 
