@@ -27,6 +27,7 @@ export default function PasswordInput ({ hiddenPassword, setHiddenPassword, isSi
           className='input'
           type={hiddenPassword ? 'password' : 'text'}
           name='password'
+          required
         />
       </div>
     </div>

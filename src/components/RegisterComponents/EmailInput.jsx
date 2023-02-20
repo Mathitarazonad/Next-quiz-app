@@ -11,6 +11,7 @@ export default function EmailInput ({ message }) {
           type='email'
           name='email'
           placeholder='example@gmail.com'
+          required
         />
       </div>
     </div>

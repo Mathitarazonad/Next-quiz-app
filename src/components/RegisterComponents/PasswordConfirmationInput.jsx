@@ -10,6 +10,7 @@ export default function PasswordConfirmationInput ({ hiddenPassword }) {
           className='input'
           type={hiddenPassword ? 'password' : 'text'}
           name='passwordConfirmation'
+          required
         />
       </div>
     </div>
