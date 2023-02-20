@@ -1,6 +1,6 @@
 import { HiOutlineMail } from 'react-icons/hi'
 
-export default function EmailInput ({ message }) {
+export default function EmailInput ({ message, inputName = 'email' }) {
   return (
     <div className='form-section'>
       <h2 className='input-title'>{message}</h2>
@@ -9,7 +9,7 @@ export default function EmailInput ({ message }) {
         <input
           className='input'
           type='email'
-          name='email'
+          name={inputName}
           placeholder='example@gmail.com'
           required
         />
