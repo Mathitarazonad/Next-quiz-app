@@ -2,7 +2,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import PasswordInput from '@/components/RegisterComponents/PasswordInput'
-import PasswordConfirmationInput from '@/components/RegisterComponents/PasswordConfirmationInput'
 import EmailInput from '@/components/RegisterComponents/EmailInput'
 import Alert from '@/components/RegisterComponents/Alert'
 import useAuth from '@/hooks/useAuth'
@@ -46,8 +45,17 @@ export default function RegisterPage () {
         >
           <UsernameInput />
           <EmailInput message='Enter an email' />
-          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp message='Enter a Password' />
-          <PasswordConfirmationInput hiddenPassword={hiddenPassword} />
+          <PasswordInput
+            hiddenPassword={hiddenPassword}
+            setHiddenPassword={setHiddenPassword}
+            isSignUp message='Enter a password'
+          />
+          <PasswordInput
+            hiddenPassword={hiddenPassword}
+            setHiddenPassword={setHiddenPassword}
+            isSignUp message='Confirm your password'
+            inputName='passwordConfirmation'
+          />
           <SubmitButton>Sign Up</SubmitButton>
         </form>
       </div>

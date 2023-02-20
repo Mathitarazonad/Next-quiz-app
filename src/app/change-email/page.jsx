@@ -7,7 +7,6 @@ import EmailInput from '@/components/RegisterComponents/EmailInput'
 import Alert from '@/components/RegisterComponents/Alert'
 import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
-import EmailConfirmationInput from '@/components/RegisterComponents/EmailConfirmationInput'
 
 export default function EmailChangePage () {
   const { error, handleCloseError, hiddenPassword, setHiddenPassword, handleEmailChange } = useAuth()
@@ -15,8 +14,8 @@ export default function EmailChangePage () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { password, email, emailConfirmation } = Object.fromEntries(new window.FormData(e.target))
-    handleEmailChange(password, email, emailConfirmation)
+    const { currentPassword, newEmail, newEmailConfirmation } = Object.fromEntries(new window.FormData(e.target))
+    handleEmailChange(currentPassword, newEmail, newEmailConfirmation)
   }
 
   return (
@@ -44,9 +43,9 @@ export default function EmailChangePage () {
           className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full shadow-lg'
           onSubmit={handleSubmit}
         >
-          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} isSignUp message='Current password' />
-          <EmailInput message='Enter a new email' />
-          <EmailConfirmationInput />
+          <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} message='Current password' inputName='currentPassword' />
+          <EmailInput message='Enter a new email' inputName='newEmail' />
+          <EmailInput message='Confirm your new email' inputName='newEmailConfirmation' />
           <SubmitButton>Change email</SubmitButton>
         </form>
       </div>
