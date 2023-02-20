@@ -4,7 +4,7 @@ import { useState, useContext } from 'react'
 export default function useAuth () {
   const [hiddenPassword, setHiddenPassword] = useState(true)
   const [error, setError] = useState('')
-  const { signUp, signIn, logout } = useContext(UserContext)
+  const { currentUser, signUp, signIn, logout, changeEmail } = useContext(UserContext)
 
   const handleSignUp = async (username, email, password, passwordConfirmation) => {
     if (password === passwordConfirmation) {
@@ -51,8 +51,29 @@ export default function useAuth () {
       return 'Email is already in use'
     } else if (errorCode === 'auth/user-not-found') {
       return 'This account doesn\'t exists'
+    } else if (errorCode === 'auth/wrong-password') {
+      return 'Invalid password or email'
     } else {
-      return 'Problem at login'
+      return `Error at ${errorCode}`
+    }
+  }
+
+  const handleEmailChange = async (currentPassword, newEmail, newEmailConfirmation) => {
+    try {
+      if (error) {
+        setError('')
+      }
+      if (currentUser.email === newEmail) {
+        setError('New email cannot be the current one')
+        return
+      }
+      if (newEmail === newEmailConfirmation) {
+        await changeEmail(currentPassword, newEmail)
+      } else {
+        setError('Emails do not match')
+      }
+    } catch (error) {
+      setError(getUserValidationError(error.code))
     }
   }
 
@@ -67,6 +88,7 @@ export default function useAuth () {
     setHiddenPassword,
     handleSignUp,
     handleSignIn,
-    handleLogout
+    handleLogout,
+    handleEmailChange
   }
 }
