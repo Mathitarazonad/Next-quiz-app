@@ -1,17 +1,29 @@
 'use client'
 import { createContext, useState, useEffect, useContext } from 'react'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  reauthenticateWithCredential,
+  getAuth,
+  EmailAuthProvider,
+  updateEmail
+} from 'firebase/auth'
 import { auth } from '@firebase/firebaseApp'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 export const UserContext = createContext()
-export function UserAuth () {
-  return useContext(UserContext)
-}
 
-export default function UserProvider ({ children }) {
+export const useUser = () => useContext(UserContext)
+
+export default function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
   const router = useRouter()
+  const currentPath = usePathname()
+  // This prevents to push to a path in the protected routes context before the user is checked if it is logged in
+  const [userChecked, setUserChecked] = useState(false)
 
   const signUp = async (username, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
@@ -26,35 +38,49 @@ export default function UserProvider ({ children }) {
     return signOut(auth)
   }
 
+  const changeEmail = async (currentPassword, email) => {
+    const user = getAuth().currentUser
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    )
+    await reauthenticateWithCredential(user, credential)
+    await updateEmail(user, email)
+    logout()
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserChecked(true)
       if (!user) {
         setCurrentUser(null)
-        router.push('/login')
+        if (currentPath !== '/login' && currentPath !== '/register') {
+          router.push('/login')
+        }
       }
       if (user) {
         setCurrentUser({
           displayName: user.displayName,
           email: user.email
         })
-        router.push('/')
+        if (currentPath === '/login' || currentPath === '/register') {
+          router.push('/')
+        }
       }
     })
     return () => {
       unsubscribe()
     }
-  }, [router])
+  }, [router, currentPath])
 
   const value = {
     currentUser,
     signUp,
     signIn,
-    logout
+    logout,
+    changeEmail,
+    userChecked
   }
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
