@@ -13,6 +13,9 @@ module.exports = {
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']
+      },
+      boxShadow: {
+        'autofill-without-bg': '0 0 0 40px white inset !important'
       }
     }
   }
