@@ -5,7 +5,7 @@ import UserCompletedLevels from '@/components/ProfileComponents/UserCompletedLev
 import UserCredentials from '@/components/ProfileComponents/UserCredentials'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import UserCoins from '@/components/MenuComponents/UserCoins'
-import BackButton from '@/components/BackButton'
+import BackButton from '@/components/MenuComponents/BackButton'
 
 export default function AccountPage() {
   const { currentUser } = useUser()
