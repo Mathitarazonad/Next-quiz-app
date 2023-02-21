@@ -9,7 +9,9 @@ module.exports = {
     extend: {
       colors: {
         'dark-violet-title': '#553285',
-        'semi-dark-violet': '#554769'
+        'semi-dark-violet': '#554769',
+        'coin-border': '#AFA54C',
+        'coin-background': '#D6CB6D'
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']

@@ -1,7 +1,8 @@
 'use client'
-import { createContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 export const CoinsContext = createContext()
+export const useCoins = () => useContext(CoinsContext)
 
 export default function CoinsProvider ({ children }) {
   const [coins, setCoins] = useState(0)
