@@ -4,7 +4,7 @@ import { useState, useContext } from 'react'
 export default function useAuth () {
   const [hiddenPassword, setHiddenPassword] = useState(true)
   const [error, setError] = useState('')
-  const { currentUser, signUp, signIn, logout, changeEmail } = useContext(UserContext)
+  const { currentUser, signUp, signIn, logout, changeEmail, changePassword } = useContext(UserContext)
 
   const handleSignUp = async (username, email, password, passwordConfirmation) => {
     if (password === passwordConfirmation) {
@@ -77,6 +77,26 @@ export default function useAuth () {
     }
   }
 
+  const handlePasswordChange = async (currentPassword, newPassword, newPasswordConfirmation) => {
+    try {
+      if (error) {
+        setError('')
+      }
+      console.log(currentPassword, newPassword, newPasswordConfirmation)
+      if (currentPassword === newPassword) {
+        setError('New password cannot be the current one')
+        return
+      }
+      if (newPassword === newPasswordConfirmation) {
+        await changePassword(currentPassword, newPassword)
+      } else {
+        setError('Passwords do not match')
+      }
+    } catch (error) {
+      setError(getUserValidationError(error.code))
+    }
+  }
+
   const handleCloseError = () => {
     setError('')
   }
@@ -89,6 +109,7 @@ export default function useAuth () {
     handleSignUp,
     handleSignIn,
     handleLogout,
-    handleEmailChange
+    handleEmailChange,
+    handlePasswordChange
   }
 }

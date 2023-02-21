@@ -9,7 +9,8 @@ import {
   reauthenticateWithCredential,
   getAuth,
   EmailAuthProvider,
-  updateEmail
+  updateEmail,
+  updatePassword
 } from 'firebase/auth'
 import { auth } from '@firebase/firebaseApp'
 import { useRouter, usePathname } from 'next/navigation'
@@ -49,6 +50,17 @@ export default function UserProvider({ children }) {
     logout()
   }
 
+  const changePassword = async (currentPassword, newPassword) => {
+    const user = getAuth().currentUser
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    )
+    await reauthenticateWithCredential(user, credential)
+    await updatePassword(user, newPassword)
+    logout()
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUserChecked(true)
@@ -79,7 +91,8 @@ export default function UserProvider({ children }) {
     signIn,
     logout,
     changeEmail,
-    userChecked
+    userChecked,
+    changePassword
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
