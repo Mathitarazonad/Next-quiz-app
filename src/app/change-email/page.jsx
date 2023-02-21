@@ -27,10 +27,10 @@ export default function EmailChangePage () {
           height={200}
           alt='Next Quiz App Logo'
         />
-        <h1 className='text-3xl font-bold text-purple-900 -mt-5 text-center'>
+        <h1 className='text-3xl font-bold text-dark-violet-title -mt-5 text-center'>
           Change your email
         </h1>
-        <p className='text-zinc-600 text-sm'>
+        <p className='text-semi-dark-violet text-sm'>
           I don't think it anymore,
           <a className='text-purple-500 font-bold' onClick={() => router.back()}>
             {' '}go back
