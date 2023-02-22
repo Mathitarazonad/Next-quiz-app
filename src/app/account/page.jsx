@@ -12,8 +12,8 @@ export default function AccountPage() {
 
   return (
     <ProtectedRoutes path='/login'>
-      <div className='min-h-screen max-w-md flex items-center mx-auto px-7 md:px-10'>
-        <div className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 md:px-10 lg:px-12 gap-7 w-full shadow-lg relative'>
+      <div className='min-h-screen max-w-md flex items-center mx-auto px-7'>
+        <div className='card p-7 gap-7'>
           <BackButton />
           <UserCoins />
           <Image

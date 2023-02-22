@@ -40,7 +40,7 @@ export default function RegisterPage () {
         {error && <Alert message={error} handleCloseError={handleCloseError} />}
 
         <form
-          className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-7 gap-5 w-full shadow-lg'
+          className='card py-7 px-7 gap-5'
           onSubmit={handleSubmit}
         >
           <UsernameInput />

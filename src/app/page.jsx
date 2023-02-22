@@ -1,4 +1,6 @@
 import MenuIcons from '@/components/MenuComponents/MenuIcons'
+import UserCoins from '@/components/MenuComponents/UserCoins'
+import ProfileButton from '@/components/ProfileComponents/ProfileButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,8 +9,9 @@ export default function Home() {
   return (
     <ProtectedRoutes path='/login'>
       <main className='min-h-screen max-w-md flex items-center mx-auto px-7'>
-        <Link href='/account'>Account</Link>
-        <div className='rounded-xl bg-white flex flex-col justify-center items-center py-7 px-12 gap-5 w-full shadow-lg'>
+        <div className='card gap-5 w-full'>
+          <ProfileButton />
+          <UserCoins />
           <Image
             src='/first-logo.png'
             alt='Next Quiz App Logo'
