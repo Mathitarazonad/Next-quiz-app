@@ -1,34 +1,28 @@
 export default function CharacterInput ({ characters, inputRefs, index, completed, charClues, handleChange, handleKey }) {
+  const defaultStyles = 'border-[4px] border-purple-400 border-opacity-90 bg-purple-100 text-purple-400 text-opacity-90 rounded-[10px] text-lg text-center font-bold caret-transparent outline-none duration-150 cursor-pointer hover:border-purple-500 focus:border-purple-500'
+  const inputDefaultStyles = characters.length === 6 ? `w-9 h-9 md:w-[42px] md:h-[42px] ${defaultStyles}` : characters.length > 6 ? `w-8 h-8 md:w-[42px] md:h-[42px] ${defaultStyles}` : `w-12 h-12 ${defaultStyles}`
+
+  const incorrectClue = ' bg-red-500 bg-opacity-20 border-red-500 border-opacity-60 text-red-500 text-opacity-60 focus:border-red-500 focus:border-opacity-90 hover:border-red-500 hover:border-opacity-90'
+
+  const inWordClue = ' bg-yellow-100 border-yellow-700 border-opacity-40 text-yellow-700 text-opacity-40 focus:border-yellow-800 focus:border-opacity-60 hover:border-yellow-800 hover:border-opacity-60'
+
+  const correctClue = ' bg-green-100 border-green-700 border-opacity-50 text-green-700 text-opacity-50 focus:border-green-700 focus:border-opacity-80 hover:border-green-700 hover:border-opacity-80'
+
   return (
-    <>
-      <input
-        minLength={1} maxLength={1}
-        disabled={!!completed}
-        ref={(element) => { inputRefs.current[index] = element }}
-        style={{ width: 50, height: 50 }} // Temporal styles
-        value={characters[index]}
-        onChange={(e) => handleChange(e, index)}
-        onKeyUp={(e) => handleKey(e, index)}
-        className={charClues[index] === 1
-          ? 'single-input none'
-          : charClues[index] === 2
-            ? 'single-input in-word'
-            : charClues[index] === 3
-              ? 'single-input correct'
-              : 'single-input'}
-      />
-      <style jsx>{`
-        .single-input.none {
-          background-color: gray;
-        }
-        .single-input.in-word {
-          background-color: yellow;
-        }
-        .single-input.correct {
-          background-color: green;
-        }
-      `}
-      </style>
-    </>
+    <input
+      minLength={1} maxLength={1}
+      disabled={!!completed}
+      ref={(element) => { inputRefs.current[index] = element }}
+      value={characters[index]}
+      onChange={(e) => handleChange(e, index)}
+      onKeyUp={(e) => handleKey(e, index)}
+      className={charClues[index] === 3
+        ? inputDefaultStyles + correctClue
+        : charClues[index] === 2
+          ? inputDefaultStyles + inWordClue
+          : charClues[index] === 1
+            ? inputDefaultStyles + incorrectClue
+            : inputDefaultStyles}
+    />
   )
 }

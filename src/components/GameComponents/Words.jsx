@@ -10,7 +10,7 @@ export default function Words ({ level, difficulty }) {
 
   return (
     <WordsProvider>
-      <div className='words-container'>
+      <div className={words[0].length > 6 ? 'flex flex-col gap-2' : 'flex flex-col gap-3'}>
         {words.map((word) => (
           <SingleWord
             word={word}

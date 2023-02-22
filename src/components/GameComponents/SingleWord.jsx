@@ -25,7 +25,7 @@ export default function SingleWord ({ word, level, difficulty }) {
   }
 
   return (
-    <div className='single-word-container' style={{ display: 'flex', gap: 5 }}>
+    <div className={word.length > 6 ? 'flex gap-2' : 'flex gap-3'}>
       {!levels[level - 1].completedDifficulties.includes(difficulty)
         ? word
           .split('')
