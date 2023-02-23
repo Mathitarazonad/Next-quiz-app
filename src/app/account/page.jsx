@@ -13,7 +13,7 @@ export default function AccountPage() {
   return (
     <ProtectedRoutes path='/login'>
       <div className='min-h-screen max-w-md flex items-center mx-auto px-7'>
-        <div className='card p-7 gap-7'>
+        <div className='card gap-7'>
           <BackButton />
           <UserCoins />
           <Image

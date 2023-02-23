@@ -5,7 +5,7 @@
 
 @layer components {
   .card {
-    @apply rounded-xl bg-white flex flex-col justify-center items-center w-full shadow-lg relative md:px-10 lg:px-12
+    @apply rounded-xl bg-white flex flex-col justify-center items-center p-7 w-full shadow-lg relative md:px-10 lg:px-12
   }
   .form-section {
     @apply w-full;
