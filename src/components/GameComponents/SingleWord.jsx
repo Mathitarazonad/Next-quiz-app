@@ -1,6 +1,7 @@
 'use client'
 import { useWord } from '@/hooks/useWord'
 import CharacterInput from './CharacterInput'
+import CompletedCharacter from './CompletedCharacter'
 import WordError from './WordError'
 
 export default function SingleWord ({ word, level, difficulty }) {
@@ -42,13 +43,7 @@ export default function SingleWord ({ word, level, difficulty }) {
             />
           ))
         : word.split('').map((chr, index) => (
-          <p
-            className='single-input correct'
-            style={{ width: 50, height: 50 }}
-            key={`${word}-${chr}-${index}`}
-          >
-            {chr}
-          </p>
+          <CompletedCharacter key={`${word}-${chr}-${index}`} character={chr} wordLength={word.length} />
         ))}
       {error && <WordError />}
     </div>
