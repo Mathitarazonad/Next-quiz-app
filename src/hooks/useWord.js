@@ -28,40 +28,57 @@ export const useWord = ({ word, level, difficulty }) => {
     const character = e.target.value
     const newCharacters = [...characters]
     newCharacters[index] = index === 0 ? character.toUpperCase() : character.toLowerCase()
-    setCharacters([...newCharacters])
+    setCharacters(newCharacters)
   } // Input value management
 
   const manageFocus = (e, index) => {
     const keyCode = e.keyCode
+
+    // Focus change with arrow keys
+    if (keyCode === 39) {
+      index !== characters.length - 1 ? inputRefs.current[index + 1].focus() : inputRefs.current[0].focus()
+    } else if (keyCode === 37) {
+      index !== 0 ? inputRefs.current[index - 1].focus() : inputRefs.current[characters.length - 1].focus()
+    }
+
     // Only if character is a Unicode letter
     if ((keyCode >= 65 && keyCode <= 90) || (keyCode === 8)) {
       const keyCharacter = e.key.toLowerCase()
-      const newArr = [...charsForFocusChange]
-      const searchEmptyInput = (inputs, currentIndex) => inputs.some(input => input === '') ? inputs.indexOf('', currentIndex) : currentIndex
+      const newArr = [...characters]
+      const searchEmptyInput = (inputs, currentIndex) => inputs.slice(currentIndex).some(input => input === '') ? inputs.indexOf('', currentIndex) : false
 
       // If user deletes a character at some input that is not the first, delete it and
       if (keyCode === 8 && index !== 0) {
         inputRefs.current[index - 1].focus()
         newArr[index] = ''
         setCharsForFocusChange(newArr)
+        setCharacters(newArr)
 
         // If user is at the first input and want to delete something, don't change the focus
       } else if (keyCode === 8 && index === 0) {
         newArr[index] = ''
         setCharsForFocusChange(newArr)
+        setCharacters(newArr)
 
-        // If the space is available, use the character and jump to the next available space
-      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] === '') {
+        // If the space is available and there more available spaces after this, use the character and jump to the next available space
+      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] === '' && searchEmptyInput(characters, index)) {
         inputRefs.current[searchEmptyInput(characters, index)].focus()
         newArr[index] = index === 0 ? keyCharacter.toUpperCase() : keyCharacter
         setCharsForFocusChange(newArr)
         setCharacters(newArr)
-        // When user writes in an input that already have a character, change the next available space for that character and jump to the first available space.
-      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] !== '') {
+
+        // When user writes in an input that already have a character, change the next available space with that character and jump to the first available space.
+      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] !== '' && searchEmptyInput(characters, index)) {
         newArr[searchEmptyInput(characters, index)] = keyCharacter
+        if (searchEmptyInput(newArr, index)) { // Double check because it can happen that after the update there is not an empty input to focus on
+          inputRefs.current[searchEmptyInput(newArr, index)].focus()
+        }
         setCharsForFocusChange(newArr)
         setCharacters(newArr)
-        inputRefs.current[searchEmptyInput(characters, index)].focus()
+
+        // When it is the last input
+      } else if (keyCode !== 8 && index === characters.length - 1 && charsForFocusChange[index] === '') {
+        setCharsForFocusChange(newArr)
       }
     }
   } // Input focus change management
@@ -76,6 +93,7 @@ export const useWord = ({ word, level, difficulty }) => {
         completeDifficulty()
       }
     } else if (!characters.some(l => l === '')) {
+      inputRefs.current[characters.length - 1].focus()
       // Only gives clues when the word that user wrote exists
       const response = await checkIfWordExists(characters.join(''))
       if (response) {
