@@ -1,3 +1,4 @@
+import AppLogo from '@/components/MenuComponents/AppLogo'
 import MenuIcons from '@/components/MenuComponents/MenuIcons'
 import UserCoins from '@/components/MenuComponents/UserCoins'
 import ProfileButton from '@/components/ProfileComponents/ProfileButton'
@@ -12,12 +13,7 @@ export default function Home() {
         <div className='card gap-5 w-full'>
           <ProfileButton />
           <UserCoins />
-          <Image
-            src='/first-logo.png'
-            alt='Next Quiz App Logo'
-            width={300}
-            height={300}
-          />
+          <AppLogo width={300} height={300} />
           <h1 className='-mt-7 text-3xl font-bold text-dark-violet-title text-center'>Next Quiz App</h1>
           <Link href='/levels' className='bg-violet-500 bg-opacity-90 w-full py-2 rounded-md text-white font-semibold text-center hover:bg-violet-400 hover:scale-95 duration-300 shadow-md '>
             Play

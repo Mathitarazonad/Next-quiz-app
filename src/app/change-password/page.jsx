@@ -6,6 +6,7 @@ import PasswordInput from '@/components/RegisterComponents/PasswordInput'
 import Alert from '@/components/RegisterComponents/Alert'
 import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
+import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function PasswordChangePage () {
   const { error, handleCloseError, hiddenPassword, setHiddenPassword, handlePasswordChange } = useAuth()
@@ -20,12 +21,7 @@ export default function PasswordChangePage () {
   return (
     <ProtectedRoutes path='/login'>
       <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10'>
-        <Image
-          src='/first-logo.png'
-          width={200}
-          height={200}
-          alt='Next Quiz App Logo'
-        />
+        <AppLogo />
         <h1 className='text-3xl font-bold text-dark-violet-title -mt-5 text-center'>
           Change your password
         </h1>

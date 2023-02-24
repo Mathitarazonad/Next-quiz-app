@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
 import PasswordInput from '@/components/RegisterComponents/PasswordInput'
@@ -7,6 +6,7 @@ import EmailInput from '@/components/RegisterComponents/EmailInput'
 import Alert from '@/components/RegisterComponents/Alert'
 import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
+import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function EmailChangePage () {
   const { error, handleCloseError, hiddenPassword, setHiddenPassword, handleEmailChange } = useAuth()
@@ -21,12 +21,7 @@ export default function EmailChangePage () {
   return (
     <ProtectedRoutes path='/login'>
       <div className='min-h-screen max-w-md flex flex-col gap-3 justify-center items-center mx-auto px-10'>
-        <Image
-          src='/first-logo.png'
-          width={200}
-          height={200}
-          alt='Next Quiz App Logo'
-        />
+        <AppLogo />
         <h1 className='text-3xl font-bold text-dark-violet-title -mt-5 text-center'>
           Change your email
         </h1>
