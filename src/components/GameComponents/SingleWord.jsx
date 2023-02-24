@@ -2,7 +2,6 @@
 import { useWord } from '@/hooks/useWord'
 import CharacterInput from './CharacterInput'
 import CompletedCharacter from './CompletedCharacter'
-import WordError from './WordError'
 
 export default function SingleWord ({ word, level, difficulty }) {
   const {
@@ -10,7 +9,6 @@ export default function SingleWord ({ word, level, difficulty }) {
     completed,
     charClues,
     inputRefs,
-    error,
     manageFocus,
     updateInput,
     levels
@@ -45,7 +43,6 @@ export default function SingleWord ({ word, level, difficulty }) {
         : word.split('').map((chr, index) => (
           <CompletedCharacter key={`${word}-${chr}-${index}`} character={chr} wordLength={word.length} />
         ))}
-      {error && <WordError />}
     </div>
   )
 }

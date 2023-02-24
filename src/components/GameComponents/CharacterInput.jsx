@@ -8,6 +8,8 @@ export default function CharacterInput ({ characters, inputRefs, index, complete
 
   const correctClue = ' bg-green-100 border-green-700 border-opacity-50 text-green-700 text-opacity-50 focus:border-green-700 focus:border-opacity-70 hover:border-green-700 hover:border-opacity-70'
 
+  const wordNotExistClue = ' bg-semi-dark-violet bg-opacity-10 border-semi-dark-violet border-opacity-50 text-gray-500 text-opacity-70 focus:border-semi-dark-violet focus:border-opacity-70 hover:border-semi-dark-violet hover:border-opacity-70'
+
   return (
     <input
       minLength={1} maxLength={1}
@@ -17,13 +19,15 @@ export default function CharacterInput ({ characters, inputRefs, index, complete
       spellCheck='false'
       onChange={(e) => handleChange(e, index)}
       onKeyUp={(e) => handleKey(e, index)}
-      className={charClues[index] === 3
-        ? inputDefaultStyles + correctClue
-        : charClues[index] === 2
-          ? inputDefaultStyles + inWordClue
-          : charClues[index] === 1
-            ? inputDefaultStyles + incorrectClue
-            : inputDefaultStyles}
+      className={charClues[index] === 4
+        ? inputDefaultStyles + wordNotExistClue
+        : charClues[index] === 3
+          ? inputDefaultStyles + correctClue
+          : charClues[index] === 2
+            ? inputDefaultStyles + inWordClue
+            : charClues[index] === 1
+              ? inputDefaultStyles + incorrectClue
+              : inputDefaultStyles}
     />
   )
 }

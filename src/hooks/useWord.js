@@ -13,7 +13,6 @@ const checkIfWordExists = async (word) => {
 export const useWord = ({ word, level, difficulty }) => {
   const [characters, setCharacters] = useState(Array(word.length).fill(''))
   const [completed, setCompleted] = useState(false)
-  const [error, setError] = useState(false)
   // State for the clues giving
   const [charClues, setCharClues] = useState(Array(word.length).fill(0))
   // State for input change with they unique references
@@ -99,11 +98,10 @@ export const useWord = ({ word, level, difficulty }) => {
       if (response) {
         setCharClues(checkCharacters(word.toLowerCase(), characters))
       } else {
-        setError(true)
+        setCharClues(characters.map(chr => 4))
       }
     } else {
       setCharClues(Array(word.length).fill(0))
-      setError(false)
     }
   } // Type of clues giving management
 
@@ -149,7 +147,6 @@ export const useWord = ({ word, level, difficulty }) => {
     characters,
     completed,
     charClues,
-    error,
     inputRefs,
     updateInput,
     manageFocus,
