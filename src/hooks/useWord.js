@@ -3,6 +3,7 @@ import { LevelsContext } from '@/contexts/LevelsContext'
 import types from '@/reducers/types'
 import { checkCharacters } from '@/functions/wordFunctions'
 import { WordsContext } from '@/contexts/WordsContext'
+import { useCoins } from '@/contexts/CoinsContext'
 
 const checkIfWordExists = async (word) => {
   const url = `/api/dictionary?word=${word}`
@@ -22,6 +23,7 @@ export const useWord = ({ word, level, difficulty }) => {
   // Contexts
   const { completedWords, setCompletedWords } = useContext(WordsContext)
   const { levels, dispatch, setNewLevelUnlocked } = useContext(LevelsContext)
+  const { setCoinsToAdd } = useCoins()
 
   const updateInput = (e, index) => {
     const character = e.target.value
@@ -87,6 +89,7 @@ export const useWord = ({ word, level, difficulty }) => {
     if (!characters.some(l => l === '') && characters.join('') === word) {
       setCompleted(true)
       setCharClues(Array(word.length).fill(3))
+      setCoinsToAdd(prevState => prevState + Math.round(characters.length / 2))
       setCompletedWords(prevState => prevState + 1)
       if (completedWords === 4) {
         completeDifficulty()

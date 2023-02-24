@@ -18,6 +18,20 @@ module.exports = {
       },
       boxShadow: {
         'autofill-without-bg': '0 0 0 40px white inset !important'
+      },
+      animation: {
+        'coin-shine': 'shine .65s linear both',
+        'coin-pulse': 'coin-pulse .65s linear both'
+      },
+      keyframes: {
+        shine: {
+          '0%': { left: '-30px' },
+          '100%': { left: '55px', opacity: '0.2' }
+        },
+        'coin-pulse': {
+          '0% 100%': { transform: 'scale(100%)' },
+          '50%': { transform: 'scale(105%)' }
+        }
       }
     }
   }
