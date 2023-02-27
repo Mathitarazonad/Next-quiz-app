@@ -1,6 +1,10 @@
 export default function CharacterInput ({ characters, inputRefs, index, completed, charClues, handleChange, handleKey }) {
-  const defaultStyles = 'border-[4px] border-purple-400 border-opacity-90 bg-purple-100 text-purple-400 text-opacity-90 rounded-[10px] text-lg text-center font-bold caret-transparent outline-none duration-150 cursor-pointer hover:border-purple-500 focus:border-purple-500 select-none md:w-[45px] md:h-[45px]'
-  const inputDefaultStyles = characters.length === 5 ? `w-10 h-10 ${defaultStyles}` : characters.length === 6 ? `w-9 h-9 ${defaultStyles}` : characters.length > 6 ? `w-8 h-8 ${defaultStyles}` : `w-[50px] h-[50px] ${defaultStyles}`
+  const defaultStyles = 'border-[4px] border-purple-400 border-opacity-90 bg-purple-100 text-purple-400 text-opacity-90 rounded-[10px] text-lg text-center font-bold caret-transparent outline-none duration-150 cursor-pointer hover:border-purple-500 focus:border-purple-500 select-none'
+
+  const inputDefaultStyles = characters.length === 5 ? `w-10 h-10 ${defaultStyles} md:w-[45px] md:h-[45px]`
+    : characters.length === 6 ? `w-9 h-9 ${defaultStyles} md:w-[43px] md:h-[43px]`
+      : characters.length > 6 ? `w-8 h-8 ${defaultStyles} md:w-[41px] md:h-[41px]`
+        : `w-[45px] h-[45px] ${defaultStyles} lg:w-[50px] lg:h-[50px]`
 
   const incorrectClue = ' bg-red-500 bg-opacity-20 border-red-500 border-opacity-60 text-red-500 text-opacity-60 focus:border-red-500 focus:border-opacity-80 hover:border-red-500 hover:border-opacity-90'
 
@@ -19,14 +23,10 @@ export default function CharacterInput ({ characters, inputRefs, index, complete
       spellCheck='false'
       onChange={(e) => handleChange(e, index)}
       onKeyUp={(e) => handleKey(e, index)}
-      className={charClues[index] === 4
-        ? inputDefaultStyles + wordNotExistClue
-        : charClues[index] === 3
-          ? inputDefaultStyles + correctClue
-          : charClues[index] === 2
-            ? inputDefaultStyles + inWordClue
-            : charClues[index] === 1
-              ? inputDefaultStyles + incorrectClue
+      className={charClues[index] === 4 ? inputDefaultStyles + wordNotExistClue
+        : charClues[index] === 3 ? inputDefaultStyles + correctClue
+          : charClues[index] === 2 ? inputDefaultStyles + inWordClue
+            : charClues[index] === 1 ? inputDefaultStyles + incorrectClue
               : inputDefaultStyles}
     />
   )
