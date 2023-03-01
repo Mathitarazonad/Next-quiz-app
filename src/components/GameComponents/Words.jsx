@@ -1,12 +1,14 @@
+'use client'
 import SingleWord from './SingleWord'
 import levelsData from '@/data/levels.json'
 import WordsProvider from '@/contexts/WordsContext'
-import { UseLevels } from '@/contexts/LevelsContext'
+import { useLevels } from '@/contexts/LevelsContext'
 import LevelUnlocked from '../LevelUnlocked'
+import DifficultyReward from './DifficultyReward'
 
 export default function Words ({ level, difficulty }) {
   const words = levelsData[level - 1][difficulty]
-  const { newLevelUnlocked } = UseLevels
+  const { newLevelUnlocked, difficultyPassed } = useLevels()
 
   return (
     <WordsProvider>
@@ -24,6 +26,7 @@ export default function Words ({ level, difficulty }) {
         {newLevelUnlocked && <LevelUnlocked />}{' '}
         {/* Alert the user that a new level has been unlocked */}
       </div>
+      {difficultyPassed && <DifficultyReward level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />}
     </WordsProvider>
   )
 }
