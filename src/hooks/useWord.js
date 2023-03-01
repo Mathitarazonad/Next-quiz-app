@@ -22,8 +22,9 @@ export const useWord = ({ word, level, difficulty }) => {
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''))
   // Contexts
   const { completedWords, setCompletedWords } = useContext(WordsContext)
-  const { levels, dispatch, setNewLevelUnlocked } = useContext(LevelsContext)
-  const { setCoinsToAdd } = useCoins()
+  const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useContext(LevelsContext)
+  const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
+  const { coinsToAdd, setCoinsToAdd, setCoinsGained } = useCoins()
 
   const updateInput = (e, index) => {
     const character = e.target.value
@@ -88,12 +89,9 @@ export const useWord = ({ word, level, difficulty }) => {
     // If user guess the word
     if (!characters.some(l => l === '') && characters.join('') === word) {
       setCompleted(true)
-      setCharClues(Array(word.length).fill(3))
-      setCoinsToAdd(prevState => prevState + Math.round(characters.length / 2))
-      setCompletedWords(prevState => prevState + 1)
-      if (completedWords === 4) {
-        completeDifficulty()
-      }
+      setCharClues(characters.map(chr => 3))
+      handleCoins()
+      handleWords()
     } else if (!characters.some(l => l === '')) {
       inputRefs.current[characters.length - 1].focus()
       // Only gives clues when the word that user wrote exists
@@ -104,15 +102,23 @@ export const useWord = ({ word, level, difficulty }) => {
         setCharClues(characters.map(chr => 4))
       }
     } else {
-      setCharClues(Array(word.length).fill(0))
+      setCharClues(characters.map(chr => 0))
     }
   } // Type of clues giving management
 
-  const completeDifficulty = () => {
+  // Level functions
+  const completeDifficulty = async () => {
+    setCoinsGained(0) // So users don't lose coins when leaving
     dispatch({
       type: types.completeDifficulty,
       payload: { level, difficulty }
     })
+    const interval = setInterval(() => {
+      if (coinsToAdd === 0) {
+        setDifficultyPassed(true)
+        clearInterval(interval)
+      }
+    }, 1000)
   }
 
   const completeLevel = () => {
@@ -130,21 +136,30 @@ export const useWord = ({ word, level, difficulty }) => {
     setNewLevelUnlocked(true)
   }
 
+  // Secondary functions
+  const handleWords = () => {
+    setCompletedWords(prevState => prevState + 1)
+    if (completedWords === 4) {
+      completeDifficulty()
+    }
+  }
+
+  const handleCoins = () => {
+    const coinsGained = Math.floor(characters.length / 2)
+    setCoinsToAdd(prevState => prevState + coinsGained)
+    setCoinsGained(prevState => prevState + coinsGained)
+  }
+
   useEffect(() => {
     checkForClues()
   }, [characters])
 
   useEffect(() => {
-    if (levels[level - 1].completedDifficulties.length === 3) {
+    if (currentLevel.completedDifficulties.length === 3 && !currentLevel.isCompleted && !nextLevel.isUnlocked) {
       completeLevel()
-    }
-  }, [levels[level - 1].completedDifficulties])
-
-  useEffect(() => {
-    if (levels[level - 1].isCompleted && !levels[level].isUnlocked) {
       unlockLevel()
     }
-  }, [levels[level - 1].isCompleted])
+  }, [currentLevel.completedDifficulties])
 
   return {
     characters,
