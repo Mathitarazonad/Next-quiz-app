@@ -10,9 +10,16 @@ export function useLevels () {
 export default function LevelsProvider ({ children }) {
   const [levels, dispatch] = useReducer(levelReducer, initialState)
   const [newLevelUnlocked, setNewLevelUnlocked] = useState(false)
+  const [difficultyPassed, setDifficultyPassed] = useState(false)
+
+  const value = {
+    levels, dispatch,
+    newLevelUnlocked, setNewLevelUnlocked,
+    difficultyPassed, setDifficultyPassed
+  }
 
   return (
-    <LevelsContext.Provider value={{ levels, dispatch, newLevelUnlocked, setNewLevelUnlocked }}>
+    <LevelsContext.Provider value={value}>
       {children}
     </LevelsContext.Provider>
   )
