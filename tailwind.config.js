@@ -20,8 +20,9 @@ module.exports = {
         'autofill-without-bg': '0 0 0 40px white inset !important'
       },
       animation: {
-        'coin-shine': 'shine .65s linear both',
-        'coin-pulse': 'coin-pulse .65s linear both'
+        'coin-shine': 'shine .3s linear both',
+        'coin-pulse': 'coin-pulse .3s linear both',
+        'star-grow': 'grow .5s ease-in both'
       },
       keyframes: {
         shine: {
@@ -31,6 +32,10 @@ module.exports = {
         'coin-pulse': {
           '0% 100%': { transform: 'scale(100%)' },
           '50%': { transform: 'scale(105%)' }
+        },
+        grow: {
+          '0%': { transform: 'scale(0%)' },
+          '100%': { transform: 'scale(100%)' }
         }
       }
     }
