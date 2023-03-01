@@ -3,7 +3,7 @@ export default function CharacterInput ({ characters, inputRefs, index, complete
 
   const inputDefaultStyles = characters.length === 5 ? `w-10 h-10 ${defaultStyles} md:w-[45px] md:h-[45px]`
     : characters.length === 6 ? `w-9 h-9 ${defaultStyles} md:w-[43px] md:h-[43px]`
-      : characters.length > 6 ? `w-8 h-8 ${defaultStyles} md:w-[41px] md:h-[41px]`
+      : characters.length > 6 ? `w-8 h-8 ${defaultStyles} text-base md:w-[41px] md:h-[41px] md:text-lg`
         : `w-[45px] h-[45px] ${defaultStyles} lg:w-[50px] lg:h-[50px]`
 
   const incorrectClue = ' bg-red-500 bg-opacity-20 border-red-500 border-opacity-60 text-red-500 text-opacity-60 focus:border-red-500 focus:border-opacity-80 hover:border-red-500 hover:border-opacity-90'
