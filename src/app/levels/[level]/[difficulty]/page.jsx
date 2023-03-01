@@ -7,10 +7,11 @@ export default function Page({ params }) {
   const { level, difficulty } = params
 
   return (
-    <div className='card gap-7 p-7'>
+    <div className='card gap-2 p-7'>
       <BackButton />
       <UserCoins />
       <h1 className='text-4xl text-dark-violet-title font-bold'>Level {level}</h1>
+      <h2 className='text-lg font-bold text-semi-dark-violet capitalize mb-1'>{difficulty}</h2>
       <Words level={parseInt(level)} difficulty={difficulty} />
     </div>
   )
