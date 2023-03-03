@@ -1,9 +1,11 @@
 import { useState, useContext, useRef, useEffect } from 'react'
-import { LevelsContext } from '@/contexts/LevelsContext'
+import { useLevels } from '@/contexts/LevelsContext'
 import types from '@/reducers/types'
 import { checkCharacters } from '@/functions/wordFunctions'
 import { WordsContext } from '@/contexts/WordsContext'
 import { useCoins } from '@/contexts/CoinsContext'
+import { updateUserDocument } from '@firebase/firestoreFunctions'
+import { useUser } from '@/contexts/UserContext'
 
 const checkIfWordExists = async (word) => {
   const url = `/api/dictionary?word=${word}`
@@ -22,9 +24,10 @@ export const useWord = ({ word, level, difficulty }) => {
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''))
   // Contexts
   const { completedWords, setCompletedWords } = useContext(WordsContext)
-  const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useContext(LevelsContext)
+  const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useLevels()
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
   const { coinsToAdd, setCoinsToAdd, setCoinsGained } = useCoins()
+  const { currentUser } = useUser()
 
   const updateInput = (e, index) => {
     const character = e.target.value
@@ -160,6 +163,12 @@ export const useWord = ({ word, level, difficulty }) => {
       unlockLevel()
     }
   }, [currentLevel.completedDifficulties])
+
+  useEffect(() => {
+    if (currentLevel.isCompleted || currentLevel.completedDifficulties.length > 0) {
+      updateUserDocument(currentUser.displayName, levels)
+    }
+  }, [currentLevel.isCompleted, currentLevel.completedDifficulties])
 
   return {
     characters,
