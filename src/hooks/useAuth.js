@@ -1,12 +1,36 @@
-import { UserContext } from '@/contexts/UserContext'
-import { useState, useContext } from 'react'
+import { useUser } from '@/contexts/UserContext'
+import { isUsernameValid } from '@firebase/firestoreFunctions'
+import { useState } from 'react'
 
 export default function useAuth () {
   const [hiddenPassword, setHiddenPassword] = useState(true)
   const [error, setError] = useState('')
-  const { currentUser, signUp, signIn, logout, changeEmail, changePassword } = useContext(UserContext)
+  const { currentUser, signUp, signIn, logout, changeEmail, changePassword } = useUser()
+
+  const getUserValidationError = (errorCode) => {
+    if (errorCode === 'auth/email-already-in-use') {
+      return 'Email is already in use'
+    } else if (errorCode === 'auth/user-not-found') {
+      return 'This account doesn\'t exists'
+    } else if (errorCode === 'auth/wrong-password') {
+      return 'Invalid password or email'
+    } else {
+      return `Error at ${errorCode}`
+    }
+  }
 
   const handleSignUp = async (username, email, password, passwordConfirmation) => {
+    const resp = await isUsernameValid(username)
+    if (!resp) {
+      setError('Username is already in use')
+      return
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long')
+      return
+    }
+
     if (password === passwordConfirmation) {
       try {
         if (error) {
@@ -14,8 +38,6 @@ export default function useAuth () {
         }
         if (email && password && passwordConfirmation) {
           await signUp(username, email, password)
-        } else {
-          setError('All fields are required')
         }
       } catch (error) {
         setError(getUserValidationError(error.code))
@@ -30,11 +52,7 @@ export default function useAuth () {
       if (error) {
         setError('')
       }
-      if (email && password) {
-        await signIn(email, password)
-      } else {
-        setError('All fields are required')
-      }
+      await signIn(email, password)
     } catch (error) {
       setError(getUserValidationError(error.code))
     }
@@ -42,20 +60,6 @@ export default function useAuth () {
 
   const handleLogout = async () => {
     await logout()
-  }
-
-  const getUserValidationError = (errorCode) => {
-    if (errorCode === 'auth/weak-password') {
-      return 'Password must be at least 6 characters long'
-    } else if (errorCode === 'auth/email-already-in-use') {
-      return 'Email is already in use'
-    } else if (errorCode === 'auth/user-not-found') {
-      return 'This account doesn\'t exists'
-    } else if (errorCode === 'auth/wrong-password') {
-      return 'Invalid password or email'
-    } else {
-      return `Error at ${errorCode}`
-    }
   }
 
   const handleEmailChange = async (currentPassword, newEmail, newEmailConfirmation) => {
@@ -82,7 +86,10 @@ export default function useAuth () {
       if (error) {
         setError('')
       }
-      console.log(currentPassword, newPassword, newPasswordConfirmation)
+      if (newPassword.length < 6) {
+        setError('Password must be at least 6 characters long')
+        return
+      }
       if (currentPassword === newPassword) {
         setError('New password cannot be the current one')
         return

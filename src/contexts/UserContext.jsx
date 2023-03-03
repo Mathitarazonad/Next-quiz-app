@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth'
 import { auth } from '@firebase/firebaseApp'
 import { useRouter, usePathname } from 'next/navigation'
+import { createUserDocument } from '@firebase/firestoreFunctions'
 
 export const UserContext = createContext()
 
@@ -29,6 +30,7 @@ export default function UserProvider({ children }) {
   const signUp = async (username, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password)
     await updateProfile(auth.currentUser, { displayName: username })
+    await createUserDocument(auth.currentUser.displayName)
   }
 
   const signIn = (email, password) => {
