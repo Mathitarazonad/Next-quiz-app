@@ -1,4 +1,5 @@
 'use client'
+import { useCoins } from '@/contexts/CoinsContext'
 import { useLevels } from '@/contexts/LevelsContext'
 import { useUser } from '@/contexts/UserContext'
 import types from '@/reducers/types'
@@ -9,6 +10,7 @@ import { useEffect } from 'react'
 export default function ProtectedRoutes({ children, path, authentication = false }) {
   const { currentUser, userChecked } = useUser()
   const { dispatch } = useLevels()
+  const { setCoins } = useCoins()
   const router = useRouter()
 
   useEffect(() => {
@@ -24,10 +26,13 @@ export default function ProtectedRoutes({ children, path, authentication = false
   useEffect(() => {
     if (userChecked && currentUser) {
       if (currentUser.displayName) {
-        getUserDocument(currentUser.displayName).then(userData => dispatch({
-          type: types.setUserData,
-          payload: { userData: Object.values(userData) }
-        }))
+        getUserDocument(currentUser.displayName).then(userData => {
+          dispatch({
+            type: types.setUserData,
+            payload: { userData: Object.values(userData.levels) }
+          })
+          setCoins(userData.coins)
+        })
       }
     }
   }, [currentUser, userChecked])
