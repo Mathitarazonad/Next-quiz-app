@@ -1,15 +1,19 @@
 'use client'
 import { useCoins } from '@/contexts/CoinsContext'
 import { useLevels } from '@/contexts/LevelsContext'
+import { useUser } from '@/contexts/UserContext'
+import { updateUserCoins } from '@firebase/firestoreFunctions'
 import DifficultyStars from './DifficultyStars'
 
 export default function DifficultyReward({ level, difficulty }) {
   const { setDifficultyPassed } = useLevels()
-  const { setCoins } = useCoins()
+  const { coins, setCoins } = useCoins()
+  const { currentUser } = useUser()
 
   const handleClick = () => {
     setDifficultyPassed(false)
     setCoins(prevState => prevState + getRewardByDifficulty())
+    updateUserCoins(currentUser.displayName, coins + getRewardByDifficulty())
     new Audio('/sounds/coinGain.wav').play()
   }
 

@@ -1,5 +1,4 @@
 'use client'
-
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 
@@ -9,13 +8,13 @@ export const useCoins = () => useContext(CoinsContext)
 export default function CoinsProvider ({ children }) {
   const [coins, setCoins] = useState(0)
   const [coinsToAdd, setCoinsToAdd] = useState(0) // State for animation when coins are added
-  const [coinsGained, setCoinsGained] = useState(0) // State to control the coins gained and rest them if user leaves the level
+  const [coinsObtained, setCoinsObtained] = useState(0) // State to control the coins gained and rest them if user leaves the level
   const path = usePathname()
 
   const value = {
     coins, setCoins,
     coinsToAdd, setCoinsToAdd,
-    coinsGained, setCoinsGained
+    coinsObtained, setCoinsObtained
   }
 
   useEffect(() => {
@@ -31,9 +30,9 @@ export default function CoinsProvider ({ children }) {
 
   useEffect(() => {
     // If user leaves a level without completing it, then rest the coins that gained in that level
-    if (coinsGained > 0) {
-      setCoins(prevState => prevState - coinsGained)
-      setCoinsGained(0)
+    if (coinsObtained > 0) {
+      setCoins(prevState => prevState - coinsObtained)
+      setCoinsObtained(0)
     }
   }, [path])
 

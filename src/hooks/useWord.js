@@ -4,7 +4,7 @@ import types from '@/reducers/types'
 import { checkCharacters } from '@/functions/wordFunctions'
 import { WordsContext } from '@/contexts/WordsContext'
 import { useCoins } from '@/contexts/CoinsContext'
-import { updateUserDocument } from '@firebase/firestoreFunctions'
+import { updateUserCoins, updateUserLevels } from '@firebase/firestoreFunctions'
 import { useUser } from '@/contexts/UserContext'
 
 const checkIfWordExists = async (word) => {
@@ -26,7 +26,7 @@ export const useWord = ({ word, level, difficulty }) => {
   const { completedWords, setCompletedWords } = useContext(WordsContext)
   const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useLevels()
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
-  const { coinsToAdd, setCoinsToAdd, setCoinsGained } = useCoins()
+  const { coins, coinsObtained, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
   const { currentUser } = useUser()
 
   const updateInput = (e, index) => {
@@ -111,7 +111,6 @@ export const useWord = ({ word, level, difficulty }) => {
 
   // Level functions
   const completeDifficulty = async () => {
-    setCoinsGained(0) // So users don't lose coins when leaving
     dispatch({
       type: types.completeDifficulty,
       payload: { level, difficulty }
@@ -150,7 +149,9 @@ export const useWord = ({ word, level, difficulty }) => {
   const handleCoins = () => {
     const coinsGained = Math.floor(characters.length / 2)
     setCoinsToAdd(prevState => prevState + coinsGained)
-    setCoinsGained(prevState => prevState + coinsGained)
+    setCoinsObtained(prevState => prevState + coinsGained)
+    updateUserCoins(currentUser.displayName, coins + coinsGained) // Update coins in database
+    setCoinsObtained(0) // So users don't lose coins when leaving
   }
 
   useEffect(() => {
@@ -166,7 +167,7 @@ export const useWord = ({ word, level, difficulty }) => {
 
   useEffect(() => {
     if (currentLevel.isCompleted || currentLevel.completedDifficulties.length > 0) {
-      updateUserDocument(currentUser.displayName, levels)
+      updateUserLevels(currentUser.displayName, levels)
     }
   }, [currentLevel.isCompleted, currentLevel.completedDifficulties])
 
