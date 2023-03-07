@@ -35,7 +35,7 @@ export default function ProtectedRoutes({ children, path, authentication = false
         })
       }
     }
-  }, [currentUser, userChecked])
+  }, [userChecked])
 
   return (
     <>
