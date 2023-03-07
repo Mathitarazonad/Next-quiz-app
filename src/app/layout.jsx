@@ -12,12 +12,12 @@ export default function RootLayout({ children }) {
       <body className='bg-zinc-200 font-poppins'>
         <LevelsProvider>
           <UserProvider>
-            <CoinsProvider>
-              <SoundProvider>
+            <SoundProvider>
+              <CoinsProvider>
                 <LogoutButton />
                 {children}
-              </SoundProvider>
-            </CoinsProvider>
+              </CoinsProvider>
+            </SoundProvider>
           </UserProvider>
         </LevelsProvider>
       </body>
