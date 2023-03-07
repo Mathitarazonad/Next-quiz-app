@@ -4,7 +4,7 @@ import levelsData from '@/data/levels.json'
 import WordsProvider from '@/contexts/WordsContext'
 import { useLevels } from '@/contexts/LevelsContext'
 import LevelUnlocked from '../LevelUnlocked'
-import DifficultyReward from './DifficultyReward'
+import DifficultyReward from './Rewards'
 
 export default function Words ({ level, difficulty }) {
   const words = levelsData[level - 1][difficulty]

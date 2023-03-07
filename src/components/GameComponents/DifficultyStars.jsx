@@ -1,10 +1,12 @@
 import { useLevels } from '@/contexts/LevelsContext'
+import { useSound } from '@/contexts/SoundContext'
 import { useEffect } from 'react'
 import { AiFillStar } from 'react-icons/ai'
 
 export default function DifficultyStars({ level, difficulty }) {
   const { levels } = useLevels()
   const { completedDifficulties } = levels[level - 1]
+  const { starCollectionSound } = useSound()
 
   const starCompleted = ' fill-yellow-600'
   const startIncompleted = ' fill-gray-400'
@@ -12,7 +14,7 @@ export default function DifficultyStars({ level, difficulty }) {
 
   useEffect(() => {
     setTimeout(() => {
-      new Audio('/sounds/starCollection.mp3').play()
+      starCollectionSound()
     }, 250)
   }, [])
 
