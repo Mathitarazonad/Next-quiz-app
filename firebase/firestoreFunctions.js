@@ -1,5 +1,5 @@
 import { initialState } from '@/reducers/levelReducer'
-import { setDoc, doc, getDoc } from 'firebase/firestore'
+import { setDoc, updateDoc, doc, getDoc } from 'firebase/firestore'
 import { db } from './firebaseApp'
 
 export const createUserDocument = async (username) => {
@@ -7,11 +7,11 @@ export const createUserDocument = async (username) => {
 }
 
 export const updateUserLevels = async (username, data) => {
-  await setDoc(doc(db, 'usersData', username), { levels: data }, { merge: true })
+  await updateDoc(doc(db, 'usersData', username), { levels: data })
 }
 
 export const updateUserCoins = async (username, coins) => {
-  await setDoc(doc(db, 'usersData', username), { coins }, { merge: true })
+  await updateDoc(doc(db, 'usersData', username), { coins })
 }
 
 export const getUserDocument = async (username) => {
