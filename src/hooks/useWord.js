@@ -111,6 +111,8 @@ export const useWord = ({ word, level, difficulty }) => {
 
   // Level functions
   const completeDifficulty = async () => {
+    updateUserCoins(currentUser.displayName, coins + Math.floor(characters.length / 2)) // Update coins in database
+    setCoinsObtained(0) // So users don't lose coins when leaving
     dispatch({
       type: types.completeDifficulty,
       payload: { level, difficulty }
@@ -150,8 +152,6 @@ export const useWord = ({ word, level, difficulty }) => {
     const coinsGained = Math.floor(characters.length / 2)
     setCoinsToAdd(prevState => prevState + coinsGained)
     setCoinsObtained(prevState => prevState + coinsGained)
-    updateUserCoins(currentUser.displayName, coins + coinsGained) // Update coins in database
-    setCoinsObtained(0) // So users don't lose coins when leaving
   }
 
   useEffect(() => {
