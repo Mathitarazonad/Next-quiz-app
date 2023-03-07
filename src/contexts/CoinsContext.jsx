@@ -1,6 +1,7 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useSound } from './SoundContext'
 
 export const CoinsContext = createContext()
 export const useCoins = () => useContext(CoinsContext)
@@ -9,6 +10,7 @@ export default function CoinsProvider ({ children }) {
   const [coins, setCoins] = useState(0)
   const [coinsToAdd, setCoinsToAdd] = useState(0) // State for animation when coins are added
   const [coinsObtained, setCoinsObtained] = useState(0) // State to control the coins gained and rest them if user leaves the level
+  const { coinGainSound } = useSound()
   const path = usePathname()
 
   const value = {
@@ -22,7 +24,7 @@ export default function CoinsProvider ({ children }) {
       const timer = setInterval(() => {
         setCoins(coins + 1)
         setCoinsToAdd(coinsToAdd - 1)
-        new Audio('/sounds/coinGain.wav').play()
+        coinGainSound()
       }, 300)
       return () => clearInterval(timer)
     }
