@@ -8,7 +8,7 @@ export default function SoundProvider({ children }) {
   const [soundActive, setSoundActive] = useState(true)
 
   const coinGainSound = () => soundActive && new Audio('/sounds/coinGain.wav').play()
-  const starCollectionSound = () => soundActive && new Audio('/sounds/starCollection.wav').play()
+  const starCollectionSound = () => soundActive && new Audio('/sounds/starCollection.mp3').play()
 
   return (
     <SoundContext.Provider value={{ soundActive, setSoundActive, coinGainSound, starCollectionSound }}>
