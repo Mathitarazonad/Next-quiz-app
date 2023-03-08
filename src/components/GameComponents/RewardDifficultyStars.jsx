@@ -3,7 +3,7 @@ import { useSound } from '@/contexts/SoundContext'
 import { useEffect } from 'react'
 import { AiFillStar } from 'react-icons/ai'
 
-export default function DifficultyStars({ level, difficulty }) {
+export default function RewardDifficultyStars({ level, difficulty }) {
   const { levels } = useLevels()
   const { completedDifficulties } = levels[level - 1]
   const { starCollectionSound } = useSound()
