@@ -11,7 +11,7 @@ export default function LevelsMenu() {
         <BackButton />
         <LogoutButton />
       </IconsPair>
-      <h1 className='text-3xl text-dark-violet-title font-bold'>Levels</h1>
+      <h1 className='text-4xl text-dark-violet-title font-bold'>Levels</h1>
       <div className='flex gap-3 flex-wrap justify-center'>
         {levels.map((level) => (
           <LevelSelector key={level.index}>{level.level}</LevelSelector>

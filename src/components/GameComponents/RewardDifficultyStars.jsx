@@ -1,9 +1,10 @@
+'use client'
 import { useLevels } from '@/contexts/LevelsContext'
 import { useSound } from '@/contexts/SoundContext'
 import { useEffect } from 'react'
 import { AiFillStar } from 'react-icons/ai'
 
-export default function RewardDifficultyStars({ level, difficulty }) {
+export default function RewardDifficultyStars({ level, difficulty = 0 }) {
   const { levels } = useLevels()
   const { completedDifficulties } = levels[level - 1]
   const { starCollectionSound } = useSound()
@@ -14,7 +15,9 @@ export default function RewardDifficultyStars({ level, difficulty }) {
 
   useEffect(() => {
     setTimeout(() => {
-      starCollectionSound()
+      if (difficulty !== 0) {
+        starCollectionSound()
+      }
     }, 250)
   }, [])
 
