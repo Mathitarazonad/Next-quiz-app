@@ -26,5 +26,47 @@
     "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
     "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
     "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 4,
+    "level" : 5,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 5,
+    "level" : 6,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 6,
+    "level" : 7,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 7,
+    "level" : 8,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 8,
+    "level" : 9,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
+  },
+  {
+    "index": 9,
+    "level" : 10,
+    "easy" : ["Brown", "Civil", "Gests", "Sleep", "Clock"],
+    "medium" : ["Hunger", "Pencil", "Shield", "Ginger", "Travel"],
+    "hard": ["Academy", "Elegant", "Scholar", "Miracle", "Victory"]
   }
 ]
