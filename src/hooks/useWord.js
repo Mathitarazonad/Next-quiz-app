@@ -1,10 +1,11 @@
 import { useState, useContext, useRef, useEffect } from 'react'
-import { useLevels } from '@/contexts/LevelsContext'
+import levelsData from '@/data/levels'
 import types from '@/reducers/types'
+import { updateUserCoins, updateUserLevels } from '@firebase/firestoreFunctions'
 import { checkCharacters } from '@/functions/wordFunctions'
+import { useLevels } from '@/contexts/LevelsContext'
 import { WordsContext } from '@/contexts/WordsContext'
 import { useCoins } from '@/contexts/CoinsContext'
-import { updateUserCoins, updateUserLevels } from '@firebase/firestoreFunctions'
 import { useUser } from '@/contexts/UserContext'
 
 const checkIfWordExists = async (word) => {
@@ -15,7 +16,6 @@ const checkIfWordExists = async (word) => {
 
 export const useWord = ({ word, level, difficulty }) => {
   const [characters, setCharacters] = useState(Array(word.length).fill(''))
-  const [completed, setCompleted] = useState(false)
   // State for the clues giving
   const [charClues, setCharClues] = useState(Array(word.length).fill(0))
   // State for input change with they unique references
@@ -26,7 +26,7 @@ export const useWord = ({ word, level, difficulty }) => {
   const { completedWords, setCompletedWords } = useContext(WordsContext)
   const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useLevels()
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
-  const { coins, coinsObtained, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
+  const { coins, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
   const { currentUser } = useUser()
 
   const updateInput = (e, index) => {
@@ -91,7 +91,6 @@ export const useWord = ({ word, level, difficulty }) => {
   const checkForClues = async () => {
     // If user guess the word
     if (!characters.some(l => l === '') && characters.join('') === word) {
-      setCompleted(true)
       setCharClues(characters.map(chr => 3))
       handleCoins()
       handleWords()
@@ -142,7 +141,12 @@ export const useWord = ({ word, level, difficulty }) => {
 
   // Secondary functions
   const handleWords = () => {
-    setCompletedWords(prevState => prevState + 1)
+    const newCompletedWords = [...completedWords]
+    const currentDifficulty = difficulty === 1 ? 'easy' : difficulty === 2 ? 'medium' : 'hard'
+    const wordIndex = levelsData[level - 1][currentDifficulty].indexOf(word)
+    newCompletedWords[wordIndex] = true
+    setCompletedWords(newCompletedWords)
+
     if (completedWords === 4) {
       completeDifficulty()
     }
@@ -173,7 +177,7 @@ export const useWord = ({ word, level, difficulty }) => {
 
   return {
     characters,
-    completed,
+    completedWords,
     charClues,
     inputRefs,
     updateInput,

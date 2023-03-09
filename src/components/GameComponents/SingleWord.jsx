@@ -6,7 +6,7 @@ import CompletedCharacter from './CompletedCharacter'
 export default function SingleWord ({ word, level, difficulty }) {
   const {
     characters,
-    completed,
+    completedWords,
     charClues,
     inputRefs,
     manageFocus,
@@ -34,7 +34,7 @@ export default function SingleWord ({ word, level, difficulty }) {
               characters={characters}
               index={index}
               inputRefs={inputRefs}
-              completed={completed}
+              completed={completedWords[index]}
               charClues={charClues}
               handleChange={handleChange}
               handleKey={handleKey}

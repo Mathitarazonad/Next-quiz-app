@@ -4,7 +4,7 @@ import { createContext, useState } from 'react'
 export const WordsContext = createContext()
 
 export default function WordsProvider ({ children }) {
-  const [completedWords, setCompletedWords] = useState(0)
+  const [completedWords, setCompletedWords] = useState(Array(5).fill(false))
 
   return (
     <WordsContext.Provider value={{ completedWords, setCompletedWords }}>
