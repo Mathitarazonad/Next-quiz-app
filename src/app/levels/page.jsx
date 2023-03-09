@@ -1,4 +1,4 @@
-import levels from '@/data/levels.json'
+import levels from '@/data/levels.js'
 import BackButton from '@/components/MenuComponents/BackButton'
 import LevelSelector from '@/components/LevelSelector'
 import LogoutButton from '@/components/MenuComponents/LogoutButton'

@@ -1,6 +1,6 @@
 'use client'
 import SingleWord from './SingleWord'
-import levelsData from '@/data/levels.json'
+import levelsData from '@/data/levels.js'
 import WordsProvider from '@/contexts/WordsContext'
 import { useLevels } from '@/contexts/LevelsContext'
 import LevelUnlocked from '../LevelUnlocked'

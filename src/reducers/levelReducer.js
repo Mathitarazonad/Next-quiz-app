@@ -1,4 +1,4 @@
-import levelsData from '@/data/levels.json'
+import levelsData from '@/data/levels.js'
 import types from './types'
 
 export const initialState = levelsData.map((level, index) => ({

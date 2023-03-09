@@ -1,6 +1,6 @@
 import BackButton from '@/components/MenuComponents/BackButton'
 import Words from '@/components/GameComponents/Words'
-import levelsData from '@/data/levels.json'
+import levelsData from '@/data/levels.js'
 import UserCoins from '@/components/MenuComponents/UserCoins'
 import IconsPair from '@/components/MenuComponents/IconsPair'
 
@@ -14,7 +14,8 @@ export default function Page({ params }) {
         <UserCoins />
       </IconsPair>
       <h1 className='text-4xl text-dark-violet-title font-bold'>Level {level}</h1>
-      <h2 className='text-xl font-bold text-semi-dark-violet capitalize mb-1'>{difficulty}</h2>
+      <h2 className='text-2xl font-bold text-semi-dark-violet capitalize mb-1'>Hint: {levelsData[level - 1].topic}</h2>
+      <h3 className='text-xl font-bold text-semi-dark-violet capitalize mb-1'>{difficulty}</h3>
       <Words level={parseInt(level)} difficulty={difficulty} />
     </div>
   )
