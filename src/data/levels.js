@@ -5,7 +5,7 @@ const levelsData = [
     topic: '🐦',
     easy: ['Dog', 'Pig', 'Cat', 'Cow', 'Bee'],
     medium: ['Goat', 'Fish', 'Crab', 'Lion', 'Duck'],
-    hard: ['Spider', 'Tiger', 'Sheep', 'Zebra', 'Shark']
+    hard: ['Bunny', 'Tiger', 'Sheep', 'Zebra', 'Shark']
   },
   {
     index: 1,
