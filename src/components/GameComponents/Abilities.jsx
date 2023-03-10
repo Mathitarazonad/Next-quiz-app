@@ -10,7 +10,7 @@ export default function Abilities() {
   const { currentUser } = useUser()
 
   const handleAbility = (cost, ability) => {
-    if (currentWord !== null && !completedWords[currentWord]) {
+    if (!completedWords[currentWord] && coins >= cost) {
       setCoins(coins - cost)
       setAbilityToUse(ability)
       updateUserCoins(currentUser.displayName, coins - cost)
