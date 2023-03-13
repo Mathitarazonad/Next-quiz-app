@@ -1,4 +1,4 @@
-export default function CharacterInput ({ characters, inputRefs, index, completed, charClues, handleChange, handleKey }) {
+export default function CharacterInput ({ characters, inputRefs, index, wordIndex, completed, charClues, handleChange, handleKey, handleCurrentWord }) {
   const defaultStyles = 'border-[4px] border-purple-400 border-opacity-90 bg-purple-100 text-purple-400 text-opacity-90 rounded-[10px] text-lg text-center font-bold caret-transparent outline-none duration-150 cursor-pointer hover:border-purple-500 focus:border-purple-500 select-none'
 
   const inputDefaultStyles = characters.length === 5 ? `w-10 h-10 ${defaultStyles} md:w-[45px] md:h-[45px]`
@@ -23,6 +23,7 @@ export default function CharacterInput ({ characters, inputRefs, index, complete
       spellCheck='false'
       onChange={(e) => handleChange(e, index)}
       onKeyUp={(e) => handleKey(e, index)}
+      onFocus={() => handleCurrentWord(wordIndex)}
       className={charClues[index] === 4 ? inputDefaultStyles + wordNotExistClue
         : charClues[index] === 3 ? inputDefaultStyles + correctClue
           : charClues[index] === 2 ? inputDefaultStyles + inWordClue

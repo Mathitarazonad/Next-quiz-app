@@ -3,7 +3,7 @@ import { useWord } from '@/hooks/useWord'
 import CharacterInput from './CharacterInput'
 import CompletedCharacter from './CompletedCharacter'
 
-export default function SingleWord ({ word, level, difficulty }) {
+export default function SingleWord ({ word, wordIndex, level, difficulty }) {
   const {
     characters,
     completedWords,
@@ -11,8 +11,9 @@ export default function SingleWord ({ word, level, difficulty }) {
     inputRefs,
     manageFocus,
     updateInput,
-    levels
-  } = useWord({ word, level, difficulty })
+    levels,
+    handleCurrentWord
+  } = useWord({ word, wordIndex, level, difficulty })
 
   const handleChange = (e, index) => {
     updateInput(e, index)
@@ -25,7 +26,7 @@ export default function SingleWord ({ word, level, difficulty }) {
 
   return (
     <div className={word.length > 6 ? 'flex gap-2' : 'flex gap-3'}>
-      {!levels[level - 1].completedDifficulties.includes(difficulty)
+      {!levels[level - 1].completedDifficulties.includes(difficulty) && !completedWords[wordIndex]
         ? word
           .split('')
           .map((character, index) => (
@@ -33,9 +34,11 @@ export default function SingleWord ({ word, level, difficulty }) {
               key={`${word}-${word[index]}-${index}`}
               characters={characters}
               index={index}
+              wordIndex={wordIndex}
               inputRefs={inputRefs}
-              completed={completedWords[index]}
+              completed={completedWords[wordIndex]}
               charClues={charClues}
+              handleCurrentWord={handleCurrentWord}
               handleChange={handleChange}
               handleKey={handleKey}
             />
