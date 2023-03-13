@@ -1,10 +1,10 @@
-import { useState, useContext, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import levelsData from '@/data/levels'
 import types from '@/reducers/types'
 import { updateUserCoins, updateUserLevels } from '@firebase/firestoreFunctions'
 import { checkCharacters } from '@/functions/wordFunctions'
 import { useLevels } from '@/contexts/LevelsContext'
-import { WordsContext } from '@/contexts/WordsContext'
+import { useCurrentLevel } from '@/contexts/CurrentLevelContext'
 import { useCoins } from '@/contexts/CoinsContext'
 import { useUser } from '@/contexts/UserContext'
 
@@ -14,7 +14,7 @@ const checkIfWordExists = async (word) => {
   return data
 }
 
-export const useWord = ({ word, level, difficulty }) => {
+export const useWord = ({ word, wordIndex, level, difficulty }) => {
   const [characters, setCharacters] = useState(Array(word.length).fill(''))
   // State for the clues giving
   const [charClues, setCharClues] = useState(Array(word.length).fill(0))
@@ -23,8 +23,8 @@ export const useWord = ({ word, level, difficulty }) => {
   // Helper state to change the focus
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''))
   // Contexts
-  const { completedWords, setCompletedWords } = useContext(WordsContext)
-  const { levels, dispatch, setNewLevelUnlocked, setDifficultyPassed } = useLevels()
+  const { completedWords, setCompletedWords, abilityToUse, setAbilityToUse, currentWord, setCurrentWord } = useCurrentLevel()
+  const { levels, dispatch, setDifficultyPassed } = useLevels()
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
   const { coins, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
   const { currentUser } = useUser()
@@ -108,7 +108,7 @@ export const useWord = ({ word, level, difficulty }) => {
     }
   } // Type of clues giving management
 
-  // Level functions
+  // ===============Level functions===============
   const completeDifficulty = async () => {
     updateUserCoins(currentUser.displayName, coins + Math.floor(characters.length / 2)) // Update coins in database
     setCoinsObtained(0) // So users don't lose coins when leaving
@@ -136,10 +136,9 @@ export const useWord = ({ word, level, difficulty }) => {
       type: types.unlockLevel,
       payload: { level, difficulty }
     })
-    setNewLevelUnlocked(true)
   }
 
-  // Secondary functions
+  // ===============Secondary functions===============
   const handleWords = () => {
     const newCompletedWords = [...completedWords]
     const currentDifficulty = difficulty === 1 ? 'easy' : difficulty === 2 ? 'medium' : 'hard'
@@ -147,7 +146,7 @@ export const useWord = ({ word, level, difficulty }) => {
     newCompletedWords[wordIndex] = true
     setCompletedWords(newCompletedWords)
 
-    if (completedWords === 4) {
+    if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
       completeDifficulty()
     }
   }
@@ -158,9 +157,70 @@ export const useWord = ({ word, level, difficulty }) => {
     setCoinsObtained(prevState => prevState + coinsGained)
   }
 
+  const handleCurrentWord = (wordIndex) => {
+    if (wordIndex !== currentWord) {
+      setCurrentWord(wordIndex)
+    }
+  }
+
+  // ===============Abilities Functions===============
+  const handleFirstAbility = () => {
+    const randomCharactersIndex = []
+    while (randomCharactersIndex.length !== Math.floor(word.length / 2)) {
+      const randomIndex = Math.round(Math.random() * (word.length - 1))
+      if (!randomCharactersIndex.includes(randomIndex) && characters[randomIndex] === '') {
+        randomCharactersIndex.push(randomIndex)
+      }
+    }
+    const newCharacters = characters.map((chr, index) => {
+      if (randomCharactersIndex.includes(index)) {
+        return word[index]
+      } else {
+        return chr
+      }
+    })
+    setCharacters(newCharacters)
+  }
+
+  const handleSecondAbility = () => {
+    const incompletedWords = completedWords.map((word, i) => i)
+      .filter((word, i) => !completedWords[i])
+    const randomWord = incompletedWords[Math.round(Math.random() * (incompletedWords.length - 1))]
+    const newCompletedWords = [...completedWords]
+    newCompletedWords[randomWord] = true
+    setCompletedWords(newCompletedWords)
+    setAbilityToUse(null)
+
+    if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
+      completeDifficulty()
+    }
+  }
+
+  const handleThirdAbility = () => {
+    const newCompletedWords = [...completedWords]
+    newCompletedWords[wordIndex] = true
+    setCompletedWords(newCompletedWords)
+
+    if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
+      completeDifficulty()
+    }
+  }
+
   useEffect(() => {
     checkForClues()
   }, [characters])
+
+  useEffect(() => {
+    if (abilityToUse === 1 && currentWord === wordIndex) {
+      handleFirstAbility()
+    }
+    if (abilityToUse === 2) {
+      handleSecondAbility()
+    }
+    if (abilityToUse === 3) {
+      handleThirdAbility()
+    }
+  }, [abilityToUse])
 
   useEffect(() => {
     if (currentLevel.completedDifficulties.length === 3 && !currentLevel.isCompleted && !nextLevel.isUnlocked) {
@@ -182,6 +242,10 @@ export const useWord = ({ word, level, difficulty }) => {
     inputRefs,
     updateInput,
     manageFocus,
-    levels
+    levels,
+    handleFirstAbility,
+    handleSecondAbility,
+    handleThirdAbility,
+    handleCurrentWord
   }
 }

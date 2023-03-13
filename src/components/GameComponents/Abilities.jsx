@@ -1,16 +1,19 @@
 import { useCoins } from '@/contexts/CoinsContext'
 import { useCurrentLevel } from '@/contexts/CurrentLevelContext'
+import { useLevels } from '@/contexts/LevelsContext'
 import { useUser } from '@/contexts/UserContext'
 import { updateUserCoins } from '@firebase/firestoreFunctions'
 import SingleHability from './SingleAbility'
 
-export default function Abilities() {
+export default function Abilities({ level, difficulty }) {
   const { setAbilityToUse, currentWord, completedWords } = useCurrentLevel()
   const { coins, setCoins } = useCoins()
   const { currentUser } = useUser()
+  const { levels } = useLevels()
 
   const handleAbility = (cost, ability) => {
-    if (!completedWords[currentWord] && coins >= cost) {
+    console.log(!levels[level - 1].completedDifficulties.includes(difficulty))
+    if (!completedWords[currentWord] && coins >= cost && !levels[level - 1].completedDifficulties.includes(difficulty)) {
       setCoins(coins - cost)
       setAbilityToUse(ability)
       updateUserCoins(currentUser.displayName, coins - cost)
