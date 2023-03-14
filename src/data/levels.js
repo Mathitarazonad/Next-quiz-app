@@ -21,7 +21,7 @@ const levelsData = [
     topic: '🧍',
     easy: ['Skin', 'Hand', 'Body', 'Life', 'Work'],
     medium: ['Group', 'Brain', 'Cloth', 'Voice', 'Adult'],
-    hard: ['Social', 'Emotion', 'Weight', 'Friend', 'Family']
+    hard: ['Social', 'Height', 'Friend', 'Family', 'Weight']
   },
   {
     index: 3,
@@ -35,8 +35,8 @@ const levelsData = [
     index: 4,
     level: 5,
     topic: '🏃',
-    easy: ['Jump', 'Exam', 'Play', 'Walk', 'Yoga'],
-    medium: ['Train', 'Skill', 'Party', 'Rugby', 'Muscle'],
+    easy: ['Jump', 'Swim', 'Play', 'Walk', 'Yoga'],
+    medium: ['Train', 'Skill', 'Party', 'Rugby', 'Sport'],
     hard: ['Basket', 'Muscle', 'Strong', 'Health', 'Soccer']
   },
   {
@@ -45,7 +45,7 @@ const levelsData = [
     topic: '💼',
     easy: ['Task', 'Plan', 'Meet', 'Time', 'Boss'],
     medium: ['Employ', 'Salary', 'Office', 'Client', 'Market'],
-    hard: ['Project', 'Venture', 'Product', 'Employ', 'Problem']
+    hard: ['Project', 'Capital', 'Product', 'Economy', 'Problem']
   },
   {
     index: 6,
@@ -61,7 +61,7 @@ const levelsData = [
     topic: '👨‍💼',
     easy: ['Actor', 'Judge', 'Pilot', 'Nurse', 'Agent'],
     medium: ['Police', 'Doctor', 'Farmer', 'Lawyer', 'Driver'],
-    hard: ['Teacher', 'Author', 'Postman', 'Fireman', 'Painter']
+    hard: ['Teacher', 'Dentist', 'Postman', 'Fireman', 'Painter']
   },
   {
     index: 8,
@@ -75,9 +75,9 @@ const levelsData = [
     index: 9,
     level: 10,
     topic: '💻',
-    easy: ['Tech', 'Code', 'Tool', 'Math', 'Data'],
-    medium: ['Science', 'Digital', 'Energy', 'Online', 'Engine'],
-    hard: ['Network', 'Robotic', 'Digital', 'Dynamic', 'Program']
+    easy: ['Core', 'Bugs', 'Math', 'Code', 'Data'],
+    medium: ['System', 'Script', 'Energy', 'Online', 'Engine'],
+    hard: ['Network', 'Virtual', 'Digital', 'Dynamic', 'Program']
   }
 ]
 
