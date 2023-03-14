@@ -7,8 +7,21 @@ export const useSound = () => useContext(SoundContext)
 export default function SoundProvider({ children }) {
   const [soundActive, setSoundActive] = useState(true)
 
-  const coinGainSound = () => soundActive && new Audio('/sounds/coinGain.wav').play()
-  const starCollectionSound = () => soundActive && new Audio('/sounds/starCollection.mp3').play()
+  const coinGainSound = () => {
+    const coinSound = new Audio('/sounds/coinGain.wav')
+    coinSound.volume = 0.2
+    if (soundActive) {
+      coinSound.play()
+    }
+  }
+
+  const starCollectionSound = () => {
+    const starSound = new Audio('/sounds/starCollection.mp3')
+    starSound.volume = 0.5
+    if (soundActive) {
+      starSound.play()
+    }
+  }
 
   return (
     <SoundContext.Provider value={{ soundActive, setSoundActive, coinGainSound, starCollectionSound }}>
