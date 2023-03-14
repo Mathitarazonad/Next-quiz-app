@@ -23,8 +23,22 @@ export default function SoundProvider({ children }) {
     }
   }
 
+  const coinDropSound = () => {
+    const coinDrop = new Audio('/sounds/coinDrop.mp3')
+    coinDrop.volume = 0.7
+    coinDrop.playbackRate = 2
+    if (soundActive) {
+      coinDrop.play()
+    }
+  }
+
+  const value = {
+    soundActive, setSoundActive,
+    coinGainSound, starCollectionSound, coinDropSound
+  }
+
   return (
-    <SoundContext.Provider value={{ soundActive, setSoundActive, coinGainSound, starCollectionSound }}>
+    <SoundContext.Provider value={value}>
       {children}
     </SoundContext.Provider>
   )
