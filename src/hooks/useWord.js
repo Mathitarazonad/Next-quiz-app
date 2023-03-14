@@ -43,18 +43,17 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     if (keyCode === 39) {
       index !== characters.length - 1 ? inputRefs.current[index + 1].focus() : inputRefs.current[0].focus()
     } else if (keyCode === 37) {
-      index !== 0 ? inputRefs.current[index - 1].focus() : inputRefs.current[characters.length - 1].focus()
+      index !== 0 ? inputRefs.current[searchAvailableInput(index, 'toBack')].focus() : inputRefs.current[characters.length - 1].focus()
     }
 
     // Only if character is a Unicode letter
     if ((keyCode >= 65 && keyCode <= 90) || (keyCode === 8)) {
       const keyCharacter = e.key.toLowerCase()
       const newArr = [...characters]
-      const searchEmptyInput = (inputs, currentIndex) => inputs.slice(currentIndex).some(input => input === '') ? inputs.indexOf('', currentIndex) : false
 
       // If user deletes a character at some input that is not the first, delete it and
       if (keyCode === 8 && index !== 0) {
-        inputRefs.current[index - 1].focus()
+        inputRefs.current[searchAvailableInput(index, 'toBack')].focus()
         newArr[index] = ''
         setCharsForFocusChange(newArr)
         setCharacters(newArr)
@@ -66,24 +65,18 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
         setCharacters(newArr)
 
         // If the space is available and there more available spaces after this, use the character and jump to the next available space
-      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] === '' && searchEmptyInput(characters, index)) {
-        inputRefs.current[searchEmptyInput(characters, index)].focus()
+      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] === '' && searchAvailableInput(index, 'emptySpace', newArr)) {
         newArr[index] = index === 0 ? keyCharacter.toUpperCase() : keyCharacter
+        inputRefs.current[searchAvailableInput(index, 'emptySpace', newArr)].focus()
         setCharsForFocusChange(newArr)
         setCharacters(newArr)
 
         // When user writes in an input that already have a character, change the next available space with that character and jump to the first available space.
-      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] !== '' && searchEmptyInput(characters, index)) {
-        newArr[searchEmptyInput(characters, index)] = keyCharacter
-        if (searchEmptyInput(newArr, index)) { // Double check because it can happen that after the update there is not an empty input to focus on
-          inputRefs.current[searchEmptyInput(newArr, index)].focus()
-        }
+      } else if (keyCode !== 8 && index !== characters.length - 1 && charsForFocusChange[index] !== '' && searchAvailableInput(index, 'emptySpace', characters)) {
+        newArr[searchAvailableInput(index, 'emptySpace', characters)] = keyCharacter
+        inputRefs.current[searchAvailableInput(index, 'toForward', newArr)].focus()
         setCharsForFocusChange(newArr)
         setCharacters(newArr)
-
-        // When it is the last input
-      } else if (keyCode !== 8 && index === characters.length - 1 && charsForFocusChange[index] === '') {
-        setCharsForFocusChange(newArr)
       }
     }
   } // Input focus change management
@@ -91,20 +84,20 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
   const checkForClues = async () => {
     // If user guess the word
     if (!characters.some(l => l === '') && characters.join('') === word) {
-      setCharClues(characters.map(chr => 3))
+      handleClues(3)
       handleCoins()
       handleWords()
     } else if (!characters.some(l => l === '')) {
-      inputRefs.current[characters.length - 1].focus()
       // Only gives clues when the word that user wrote exists
       const response = await checkIfWordExists(characters.join(''))
       if (response) {
         setCharClues(checkCharacters(word.toLowerCase(), characters))
+        inputRefs.current[searchAvailableInput(word.length, 'toBack', checkCharacters(word.toLowerCase(), characters))].focus()
       } else {
-        setCharClues(characters.map(chr => 4))
+        handleClues(4)
       }
     } else {
-      setCharClues(characters.map(chr => 0))
+      handleClues(0)
     }
   } // Type of clues giving management
 
@@ -138,6 +131,26 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     })
   }
 
+  // ===============Focus secondary function===============
+  const searchAvailableInput = (currentIndex, searchType, optionalArr) => {
+    if (searchType === 'toBack') {
+      if (optionalArr) {
+        return optionalArr.slice(0, currentIndex).map(clue => clue === 3).lastIndexOf(false)
+      }
+      return inputRefs.current.map(input => input.disabled).slice(0, currentIndex).some(chr => !chr)
+        ? inputRefs.current.map(input => input.disabled).slice(0, currentIndex).lastIndexOf(false)
+        : currentIndex
+    } else if (searchType === 'toForward') {
+      return inputRefs.current.map(input => input.disabled).slice(currentIndex + 1).some(chr => !chr)
+        ? inputRefs.current.map(input => input.disabled).indexOf(false, currentIndex + 1)
+        : false
+    } else if (searchType === 'emptySpace') {
+      return optionalArr.slice(currentIndex).some(chr => chr === '')
+        ? optionalArr.indexOf('', currentIndex)
+        : false
+    }
+  }
+
   // ===============Secondary functions===============
   const handleWords = () => {
     const newCompletedWords = [...completedWords]
@@ -149,6 +162,20 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
       completeDifficulty()
     }
+  }
+
+  const handleClues = (clueType) => {
+    const newClues = charClues.map(clue => {
+      if (clue !== 3) {
+        return clueType
+      } else return clue
+    })
+
+    if (clueType !== 0 && clueType !== 3) {
+      inputRefs.current[searchAvailableInput(word.length, 'toBack', newClues)].focus()
+    }
+
+    setCharClues(newClues)
   }
 
   const handleCoins = () => {
@@ -165,15 +192,19 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
 
   // ===============Abilities Functions===============
   const handleFirstAbility = () => {
-    const randomCharactersIndex = []
-    while (randomCharactersIndex.length !== Math.floor(word.length / 2)) {
-      const randomIndex = Math.round(Math.random() * (word.length - 1))
-      if (!randomCharactersIndex.includes(randomIndex) && characters[randomIndex] === '') {
-        randomCharactersIndex.push(randomIndex)
+    const availableIndex = charClues.map((clue, index) => clue !== 3 ? index : -1)
+      .filter(clue => clue >= 0)
+    const randomIndexs = []
+
+    while (randomIndexs.length !== Math.floor(availableIndex.length / 2)) {
+      const randomIndex = availableIndex[Math.round(Math.random() * (availableIndex.length - 1))]
+      if (!randomIndexs.includes(randomIndex)) {
+        randomIndexs.push(randomIndex)
       }
     }
+
     const newCharacters = characters.map((chr, index) => {
-      if (randomCharactersIndex.includes(index)) {
+      if (randomIndexs.includes(index)) {
         return word[index]
       } else {
         return chr
@@ -189,7 +220,6 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     const newCompletedWords = [...completedWords]
     newCompletedWords[randomWord] = true
     setCompletedWords(newCompletedWords)
-    setAbilityToUse(null)
 
     if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
       completeDifficulty()
@@ -198,7 +228,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
 
   const handleThirdAbility = () => {
     const newCompletedWords = [...completedWords]
-    newCompletedWords[wordIndex] = true
+    newCompletedWords[currentWord] = true
     setCompletedWords(newCompletedWords)
 
     if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
@@ -220,6 +250,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     if (abilityToUse === 3) {
       handleThirdAbility()
     }
+    setAbilityToUse(null)
   }, [abilityToUse])
 
   useEffect(() => {
