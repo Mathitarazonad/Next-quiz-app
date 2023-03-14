@@ -3,7 +3,7 @@ import { setDoc, updateDoc, doc, getDoc } from 'firebase/firestore'
 import { db } from './firebaseApp'
 
 export const createUserDocument = async (username) => {
-  await setDoc(doc(db, 'usersData', username), { levels: initialState, coins: 0 })
+  await setDoc(doc(db, 'usersData', username), { levels: initialState, coins: 5 })
 }
 
 export const updateUserLevels = async (username, data) => {
