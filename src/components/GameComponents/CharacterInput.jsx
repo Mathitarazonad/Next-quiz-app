@@ -17,7 +17,7 @@ export default function CharacterInput ({ characters, inputRefs, index, wordInde
   return (
     <input
       minLength={1} maxLength={1}
-      disabled={!!completed}
+      disabled={charClues[index] === 3 || completed}
       ref={(element) => { inputRefs.current[index] = element }}
       value={characters[index]}
       spellCheck='false'
