@@ -14,7 +14,7 @@ export default function LevelsMenu() {
       <h1 className='text-4xl text-dark-violet-title font-bold'>Levels</h1>
       <div className='flex gap-3 flex-wrap justify-center'>
         {levels.map((level) => (
-          <LevelSelector key={level.index}>{level.level}</LevelSelector>
+          <LevelSelector key={level.index} level={level.level} />
         ))}
       </div>
     </div>
