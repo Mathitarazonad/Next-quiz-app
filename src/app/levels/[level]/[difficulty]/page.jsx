@@ -1,9 +1,9 @@
-import BackButton from '@/components/MenuComponents/BackButton'
 import Words from '@/components/GameComponents/Words'
 import levelsData from '@/data/levels.js'
 import UserCoins from '@/components/MenuComponents/UserCoins'
 import IconsPair from '@/components/MenuComponents/IconsPair'
 import CurrentLevelProvider from '@/contexts/CurrentLevelContext'
+import GameLeaveButton from '@/components/MenuComponents/GameLeaveButton'
 
 export default function Page({ params }) {
   const { level, difficulty } = params
@@ -12,7 +12,7 @@ export default function Page({ params }) {
     <div className='card gap-2 p-7'>
       <CurrentLevelProvider>
         <IconsPair>
-          <BackButton />
+          <GameLeaveButton />
           <UserCoins />
         </IconsPair>
         <h1 className='text-4xl text-dark-violet-title font-bold'>Level {level}</h1>
