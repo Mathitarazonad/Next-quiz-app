@@ -211,6 +211,15 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
       }
     })
     setCharacters(newCharacters)
+
+    const newClues = charClues.map((clue, index) => {
+      if (randomIndexs.includes(index)) {
+        return 3
+      } else {
+        return clue
+      }
+    })
+    setCharClues(newClues)
   }
 
   const handleSecondAbility = () => {
