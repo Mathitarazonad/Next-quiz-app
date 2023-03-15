@@ -17,12 +17,12 @@ export default function Home() {
           </IconsPair>
           <AppLogo width={300} height={300} />
           <h1 className='-mt-7 text-3xl font-bold text-dark-violet-title text-center'>Next Quiz App</h1>
-          <Link href='/levels' className='bg-violet-600 bg-opacity-80 w-full py-2 rounded-md text-white font-semibold text-center hover:bg-opacity-60 duration-300 shadow-md'>
+          <Link href='/levels' className='bg-violet-600 bg-opacity-80 w-full py-2 rounded-md text-white font-semibold text-center hover:bg-opacity-50 duration-300 shadow-md'>
             Play
           </Link>
-          <button className='bg-gray-500 bg-opacity-90 w-full py-2 rounded-md text-white font-semibold text-center hover:bg-opacity-70 duration-300 shadow-md'>
-            Rules
-          </button>
+          <Link href='/how-to-play' className='bg-semi-dark-violet bg-opacity-70 w-full py-2 rounded-md text-white font-semibold text-center hover:bg-opacity-50 duration-300 shadow-md'>
+            How to play
+          </Link>
           <MenuIcons />
         </div>
       </main>
