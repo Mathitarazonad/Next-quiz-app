@@ -32,9 +32,18 @@ export default function SoundProvider({ children }) {
     }
   }
 
+  const abilityUnableSound = () => {
+    const unable = new Audio('/sounds/unable.mp3')
+    unable.volume = 0.5
+    unable.playbackRate = 1.75
+    if (soundActive) {
+      unable.play()
+    }
+  }
+
   const value = {
     soundActive, setSoundActive,
-    coinGainSound, starCollectionSound, coinDropSound
+    coinGainSound, starCollectionSound, coinDropSound, abilityUnableSound
   }
 
   return (
