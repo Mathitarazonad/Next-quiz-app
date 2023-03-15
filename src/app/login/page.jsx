@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import EmailInput from '@/components/RegisterComponents/EmailInput'
 import PasswordInput from '@/components/RegisterComponents/PasswordInput'
 import Alert from '@/components/RegisterComponents/Alert'
