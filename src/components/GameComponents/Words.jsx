@@ -24,7 +24,6 @@ export default function Words ({ level, difficulty }) {
               }
             />
           ))}
-          {/* Alert the user that a new level has been unlocked */}
         </div>
         <Abilities level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />
       </div>

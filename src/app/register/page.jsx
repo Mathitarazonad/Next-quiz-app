@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import PasswordInput from '@/components/RegisterComponents/PasswordInput'
 import EmailInput from '@/components/RegisterComponents/EmailInput'
 import Alert from '@/components/RegisterComponents/Alert'
@@ -36,7 +35,7 @@ export default function RegisterPage () {
         {error && <Alert message={error} handleCloseError={handleCloseError} />}
 
         <form
-          className='card py-7 px-7 gap-5'
+          className='card gap-5'
           onSubmit={handleSubmit}
         >
           <UsernameInput />

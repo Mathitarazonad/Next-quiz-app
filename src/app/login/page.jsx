@@ -35,7 +35,7 @@ export default function LoginPage () {
         {error && <Alert message={error} handleCloseError={handleCloseError} />}
 
         <form
-          className='card py-7 px-7 gap-5'
+          className='card gap-5'
           onSubmit={(e) => handleSubmit(e)}
         >
           <EmailInput message='Enter your email' />

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <ProtectedRoutes path='/login'>
       <main className='min-h-screen max-w-md flex items-center mx-auto px-7'>
-        <div className='card gap-5 w-full'>
+        <div className='card gap-5'>
           <IconsPair>
             <ProfileButton />
             <LogoutButton />
