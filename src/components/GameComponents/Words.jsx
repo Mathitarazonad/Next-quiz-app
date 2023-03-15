@@ -4,10 +4,13 @@ import levelsData from '@/data/levels.js'
 import { useLevels } from '@/contexts/LevelsContext'
 import DifficultyReward from './Rewards'
 import Abilities from './Abilities'
+import { useCurrentLevel } from '@/contexts/CurrentLevelContext'
+import LeavingAlert from '../MenuComponents/LeavingAlert'
 
 export default function Words ({ level, difficulty }) {
   const words = levelsData[level - 1][difficulty]
   const { difficultyPassed } = useLevels()
+  const { showAlert } = useCurrentLevel()
 
   return (
     <>
@@ -28,6 +31,7 @@ export default function Words ({ level, difficulty }) {
         <Abilities level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />
       </div>
       {difficultyPassed && <DifficultyReward level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />}
+      {showAlert && <LeavingAlert />}
     </>
   )
 }

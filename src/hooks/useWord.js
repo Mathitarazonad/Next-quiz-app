@@ -23,7 +23,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
   // Helper state to change the focus
   const [charsForFocusChange, setCharsForFocusChange] = useState(Array(word.length).fill(''))
   // Contexts
-  const { completedWords, setCompletedWords, abilityToUse, setAbilityToUse, currentWord, setCurrentWord } = useCurrentLevel()
+  const { completedWords, setCompletedWords, abilityToUse, setAbilityToUse, currentWord, setCurrentWord, setAlertAtLeaving } = useCurrentLevel()
   const { levels, dispatch, setDifficultyPassed } = useLevels()
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
   const { coins, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
@@ -87,6 +87,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
       handleClues(3)
       handleCoins()
       handleWords()
+      setAlertAtLeaving(true)
     } else if (!characters.some(l => l === '')) {
       // Only gives clues when the word that user wrote exists
       const response = await checkIfWordExists(characters.join(''))
