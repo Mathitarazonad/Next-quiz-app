@@ -12,7 +12,7 @@ export default function CharacterInput ({ characters, inputRefs, index, wordInde
 
   const correctClue = ' bg-green-100 border-green-700 border-opacity-50 text-green-700 text-opacity-50 hover:border-green-700 hover:border-opacity-50'
 
-  const wordNotExistClue = ' bg-semi-dark-violet bg-opacity-10 border-semi-dark-violet border-opacity-50 text-gray-500 text-opacity-70 focus:border-semi-dark-violet focus:border-opacity-70 hover:border-semi-dark-violet hover:border-opacity-70'
+  const wordNotExistClue = ' bg-gray-300 bg-opacity-50 border-gray-600 border-opacity-50 text-gray-500 text-opacity-70 focus:border-semi-dark-violet focus:border-opacity-70 hover:border-semi-dark-violet hover:border-opacity-70'
 
   return (
     <input
