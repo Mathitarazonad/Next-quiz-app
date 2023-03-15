@@ -16,7 +16,7 @@ export default function Page({ params }) {
           <UserCoins />
         </IconsPair>
         <h1 className='text-4xl text-dark-violet-title font-bold'>Level {level}</h1>
-        <h2 className='text-2xl font-bold text-semi-dark-violet capitalize mb-1'>Hint: {levelsData[level - 1].topic}</h2>
+        <h2 className='text-2xl font-bold text-semi-dark-violet capitalize mb-1'>Topic: {levelsData[level - 1].topic}</h2>
         <h3 className='text-xl font-bold text-semi-dark-violet capitalize mb-1'>{difficulty}</h3>
         <Words level={parseInt(level)} difficulty={difficulty} />
       </CurrentLevelProvider>
