@@ -11,26 +11,21 @@ export default function Abilities({ level, difficulty }) {
   const { coins, setCoins } = useCoins()
   const { currentUser } = useUser()
   const { levels } = useLevels()
-  const { coinDropSound } = useSound()
+  const { coinDropSound, abilityUnableSound } = useSound()
 
   const handleAbility = (cost, ability) => {
-    if (usedAbilities.includes(ability)) {
+    if (usedAbilities.includes(ability) || coins < cost || (completedWords[currentWord]) || levels[level - 1].completedDifficulties.includes(difficulty)) {
+      abilityUnableSound()
       return
     }
 
-    if (!completedWords[currentWord] && coins >= cost && !levels[level - 1].completedDifficulties.includes(difficulty)) {
+    if (((ability === 1 || ability === 3) && currentWord !== null) || ability === 2) {
+      console.log(currentWord && true, currentWord)
       coinDropSound()
-      if ((ability === 1 || ability === 3) && currentWord) {
-        setCoins(coins - cost)
-        setAbilityToUse(ability)
-        setUsedAbilities([...usedAbilities, ability])
-        updateUserCoins(currentUser.displayName, coins - cost)
-      } else {
-        setCoins(coins - cost)
-        setAbilityToUse(ability)
-        setUsedAbilities([...usedAbilities, ability])
-        updateUserCoins(currentUser.displayName, coins - cost)
-      }
+      setCoins(coins - cost)
+      setAbilityToUse(ability)
+      setUsedAbilities([...usedAbilities, ability])
+      updateUserCoins(currentUser.displayName, coins - cost)
     }
   }
 
