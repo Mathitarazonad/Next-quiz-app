@@ -20,7 +20,6 @@ export default function Abilities({ level, difficulty }) {
     }
 
     if (((ability === 1 || ability === 3) && currentWord !== null) || ability === 2) {
-      console.log(currentWord && true, currentWord)
       coinDropSound()
       setCoins(coins - cost)
       setAbilityToUse(ability)
