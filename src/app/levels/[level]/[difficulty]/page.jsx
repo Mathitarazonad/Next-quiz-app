@@ -9,7 +9,7 @@ export default function Page({ params }) {
   const { level, difficulty } = params
 
   return (
-    <div className='card gap-2 p-7'>
+    <div className='card gap-2 py-7 px-0 md:px-7'>
       <CurrentLevelProvider>
         <IconsPair>
           <GameLeaveButton />
