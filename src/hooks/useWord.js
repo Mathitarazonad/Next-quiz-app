@@ -197,7 +197,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
       .filter(clue => clue >= 0)
     const randomIndexs = []
 
-    while (randomIndexs.length !== Math.floor(availableIndex.length / 2)) {
+    while (randomIndexs.length !== Math.round(availableIndex.length / 2)) {
       const randomIndex = availableIndex[Math.round(Math.random() * (availableIndex.length - 1))]
       if (!randomIndexs.includes(randomIndex)) {
         randomIndexs.push(randomIndex)
