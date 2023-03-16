@@ -1,11 +1,12 @@
 import BackButton from '@/components/MenuComponents/BackButton'
 import IconsPair from '@/components/MenuComponents/IconsPair'
+import LogoutButton from '@/components/MenuComponents/LogoutButton'
 import Image from 'next/image'
 export default function HowToPlayPage() {
   return (
     <div className='min-h-screen max-w-md flex items-center mx-auto px-7 py-7'>
       <div className='card gap-3'>
-        <IconsPair><BackButton /></IconsPair>
+        <IconsPair><BackButton /><LogoutButton /></IconsPair>
         <h1 className='text-dark-violet-title font-bold text-3xl text-center'>How to play</h1>
         <div className=' flex flex-col gap-1'>
           <h2 className='text-semi-dark-violet font-bold text-2xl text-center'>General</h2>
