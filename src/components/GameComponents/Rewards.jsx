@@ -1,5 +1,6 @@
 'use client'
 import { useCoins } from '@/contexts/CoinsContext'
+import { useCurrentLevel } from '@/contexts/CurrentLevelContext'
 import { useLevels } from '@/contexts/LevelsContext'
 import { useSound } from '@/contexts/SoundContext'
 import { useUser } from '@/contexts/UserContext'
@@ -11,12 +12,14 @@ export default function Rewards({ level, difficulty }) {
   const { coins, setCoins } = useCoins()
   const { coinGainSound } = useSound()
   const { currentUser } = useUser()
+  const { setAlertAtLeaving } = useCurrentLevel()
   const isLevelCompleted = levels[level - 1].isCompleted
 
   const handleReward = () => {
     const username = currentUser.displayName
     const reward = getReward()
     setDifficultyPassed(false)
+    setAlertAtLeaving(false)
     coinGainSound()
     setCoins(coins + reward)
     updateUserCoins(username, coins + reward)
