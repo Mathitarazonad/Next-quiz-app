@@ -7,10 +7,12 @@ import {
   signOut,
   updateProfile,
   reauthenticateWithCredential,
-  getAuth,
   EmailAuthProvider,
   updateEmail,
-  updatePassword
+  updatePassword,
+  sendPasswordResetEmail,
+  verifyPasswordResetCode,
+  confirmPasswordReset
 } from 'firebase/auth'
 import { auth } from '@firebase/firebaseApp'
 import { useRouter, usePathname } from 'next/navigation'
@@ -42,7 +44,7 @@ export default function UserProvider({ children }) {
   }
 
   const changeEmail = async (currentPassword, email) => {
-    const user = getAuth().currentUser
+    const user = auth.currentUser
     const credential = EmailAuthProvider.credential(
       user.email,
       currentPassword
@@ -53,7 +55,7 @@ export default function UserProvider({ children }) {
   }
 
   const changePassword = async (currentPassword, newPassword) => {
-    const user = getAuth().currentUser
+    const user = auth.currentUser
     const credential = EmailAuthProvider.credential(
       user.email,
       currentPassword
@@ -63,23 +65,34 @@ export default function UserProvider({ children }) {
     logout()
   }
 
+  const sendEmailOfPasswordReset = async (email) => {
+    await sendPasswordResetEmail(auth, email)
+  }
+
+  const isValidPasswordResetCode = async (code) => {
+    try {
+      await verifyPasswordResetCode(auth, code)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
+  const confirmNewPasswordReset = async (code, password) => {
+    return await confirmPasswordReset(auth, code, password)
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUserChecked(true)
       if (!user) {
         setCurrentUser(null)
-        if (currentPath !== '/login' && currentPath !== '/register') {
-          router.push('/login')
-        }
       }
       if (user) {
         setCurrentUser({
           displayName: user.displayName,
           email: user.email
         })
-        if (currentPath === '/login' || currentPath === '/register') {
-          router.push('/')
-        }
       }
     })
     return () => {
@@ -94,7 +107,10 @@ export default function UserProvider({ children }) {
     logout,
     changeEmail,
     userChecked,
-    changePassword
+    changePassword,
+    sendEmailOfPasswordReset,
+    isValidPasswordResetCode,
+    confirmNewPasswordReset
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
