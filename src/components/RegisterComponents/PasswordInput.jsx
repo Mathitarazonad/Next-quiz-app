@@ -27,6 +27,7 @@ export default function PasswordInput ({ hiddenPassword, setHiddenPassword, isSi
         <input
           placeholder={isSignUp && (inputName === 'password' || inputName === 'newPassword') ? 'Must be at least 6 characters long' : ''}
           className='input'
+          minLength={6}
           type={hiddenPassword ? 'password' : 'text'}
           name={inputName}
           required
