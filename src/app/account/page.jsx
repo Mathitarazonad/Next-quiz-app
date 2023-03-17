@@ -21,7 +21,7 @@ export default function AccountPage() {
             <LogoutButton />
           </IconsPair>
           <Image
-            src='/user-photo.png'
+            src='/imgs/user-photo.png'
             width={130}
             height={130}
             alt='User Profile Photo'
