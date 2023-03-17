@@ -1,11 +1,15 @@
 import { useUser } from '@/contexts/UserContext'
 import { isUsernameValid } from '@firebase/firestoreFunctions'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function useAuth () {
   const [hiddenPassword, setHiddenPassword] = useState(true)
   const [error, setError] = useState('')
-  const { currentUser, signUp, signIn, logout, changeEmail, changePassword } = useUser()
+  const [successMessage, setSuccessMessage] = useState('')
+  const { currentUser, signUp, signIn, logout, changeEmail, changePassword, sendEmailOfPasswordReset, confirmNewPasswordReset } = useUser()
+  const [disableSubmit, setDisableSubmit] = useState(false)
+  const router = useRouter()
 
   const getUserValidationError = (errorCode) => {
     if (errorCode === 'auth/email-already-in-use') {
@@ -23,11 +27,6 @@ export default function useAuth () {
     const resp = await isUsernameValid(username)
     if (!resp) {
       setError('Username is already in use')
-      return
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long')
       return
     }
 
@@ -86,10 +85,6 @@ export default function useAuth () {
       if (error) {
         setError('')
       }
-      if (newPassword.length < 6) {
-        setError('Password must be at least 6 characters long')
-        return
-      }
       if (currentPassword === newPassword) {
         setError('New password cannot be the current one')
         return
@@ -104,6 +99,43 @@ export default function useAuth () {
     }
   }
 
+  const handlePasswordForgot = async (email) => {
+    if (error) {
+      setError('')
+    }
+
+    if (disableSubmit) {
+      return
+    }
+
+    try {
+      await sendEmailOfPasswordReset(email)
+      setDisableSubmit(true)
+      setSuccessMessage('Mail sent successfully, check it for further instructions')
+    } catch (error) {
+      setError(getUserValidationError(error))
+    }
+  }
+
+  const handlePasswordReset = async (code, password, passwordConfirmation) => {
+    if (error) {
+      setError('')
+    }
+
+    if (password !== passwordConfirmation) {
+      setError('Passwords do not match')
+      return
+    }
+
+    try {
+      await confirmNewPasswordReset(code, password)
+      setSuccessMessage('Password reset successful')
+      setTimeout(router.replace('/login'), 500)
+    } catch (error) {
+      setError(getUserValidationError(error))
+    }
+  }
+
   const handleCloseError = () => {
     setError('')
   }
@@ -111,12 +143,16 @@ export default function useAuth () {
   return {
     error,
     handleCloseError,
+    successMessage,
     hiddenPassword,
     setHiddenPassword,
     handleSignUp,
     handleSignIn,
     handleLogout,
     handleEmailChange,
-    handlePasswordChange
+    handlePasswordChange,
+    handlePasswordForgot,
+    handlePasswordReset,
+    disableSubmit
   }
 }
