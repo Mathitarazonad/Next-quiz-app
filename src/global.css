@@ -11,7 +11,7 @@
     @apply w-full;
   }
   .input-container {
-    @apply border border-gray-500 flex items-center rounded-lg p-2 px-5 gap-2;
+    @apply border border-gray-500 flex items-center rounded-lg p-2 px-3 gap-2;
   }
   .input-icon {
     @apply text-gray-500 text-sm;
