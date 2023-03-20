@@ -24,33 +24,44 @@ export default function useAuth () {
   }
 
   const handleSignUp = async (username, email, password, passwordConfirmation) => {
+    if (disableSubmit) {
+      return
+    }
+
+    if (error) {
+      setError('')
+    }
+
     const resp = await isUsernameValid(username)
     if (!resp) {
       setError('Username is already in use')
       return
     }
 
-    if (password === passwordConfirmation) {
-      try {
-        if (error) {
-          setError('')
-        }
-        if (email && password && passwordConfirmation) {
-          await signUp(username, email, password)
-        }
-      } catch (error) {
-        setError(getUserValidationError(error.code))
-      }
-    } else {
+    if (password !== passwordConfirmation) {
       setError('Passwords do not match')
+      return
+    }
+
+    try {
+      setDisableSubmit(true)
+      await signUp(username, email, password)
+    } catch (error) {
+      setError(getUserValidationError(error.code))
     }
   }
 
   const handleSignIn = async (email, password) => {
+    if (disableSubmit) {
+      return
+    }
+
+    if (error) {
+      setError('')
+    }
+
     try {
-      if (error) {
-        setError('')
-      }
+      setDisableSubmit(true)
       await signIn(email, password)
     } catch (error) {
       setError(getUserValidationError(error.code))
@@ -62,50 +73,66 @@ export default function useAuth () {
   }
 
   const handleEmailChange = async (currentPassword, newEmail, newEmailConfirmation) => {
+    if (disableSubmit) {
+      return
+    }
+
+    if (error) {
+      setError('')
+    }
+
+    if (currentUser.email === newEmail) {
+      setError('New email cannot be the current one')
+      return
+    }
+
+    if (!newEmail === newEmailConfirmation) {
+      setError('Emails do not match')
+      return
+    }
+
     try {
-      if (error) {
-        setError('')
-      }
-      if (currentUser.email === newEmail) {
-        setError('New email cannot be the current one')
-        return
-      }
-      if (newEmail === newEmailConfirmation) {
-        await changeEmail(currentPassword, newEmail)
-      } else {
-        setError('Emails do not match')
-      }
+      setDisableSubmit(true)
+      await changeEmail(currentPassword, newEmail)
     } catch (error) {
       setError(getUserValidationError(error.code))
     }
   }
 
   const handlePasswordChange = async (currentPassword, newPassword, newPasswordConfirmation) => {
+    if (disableSubmit) {
+      return
+    }
+
+    if (error) {
+      setError('')
+    }
+
+    if (currentPassword === newPassword) {
+      setError('New password cannot be the current one')
+      return
+    }
+
+    if (newPassword !== newPasswordConfirmation) {
+      setError('Passwords do not match')
+      return
+    }
+
     try {
-      if (error) {
-        setError('')
-      }
-      if (currentPassword === newPassword) {
-        setError('New password cannot be the current one')
-        return
-      }
-      if (newPassword === newPasswordConfirmation) {
-        await changePassword(currentPassword, newPassword)
-      } else {
-        setError('Passwords do not match')
-      }
+      setDisableSubmit(true)
+      await changePassword(currentPassword, newPassword)
     } catch (error) {
       setError(getUserValidationError(error.code))
     }
   }
 
   const handlePasswordForgot = async (email) => {
-    if (error) {
-      setError('')
-    }
-
     if (disableSubmit) {
       return
+    }
+
+    if (error) {
+      setError('')
     }
 
     try {
@@ -118,6 +145,10 @@ export default function useAuth () {
   }
 
   const handlePasswordReset = async (code, password, passwordConfirmation) => {
+    if (disableSubmit) {
+      return
+    }
+
     if (error) {
       setError('')
     }
