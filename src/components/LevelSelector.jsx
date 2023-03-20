@@ -20,7 +20,7 @@ export default function LevelSelector ({ level }) {
 
   return (
     <Link href={`/levels/${level}`} className='flex gap-1 md:mr-5'>
-      <div className='rounded-full border-[5px] border-dark-violet-title border-opacity-80 bg-violet-600 bg-opacity-60 h-[50px] w-[50px] text-center'>
+      <div className='rounded-full border-[5px] border-dark-violet-title border-opacity-80 bg-violet-600 bg-opacity-60 h-[50px] w-[50px] text-center hover:animate-coin-pulse'>
         <p className='font-bold mt-[7px] text-white text-lg'>{level}</p>
       </div>
       <CompletedDifficulties level={level} />
