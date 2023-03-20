@@ -7,6 +7,7 @@ import { useLevels } from '@/contexts/LevelsContext'
 import { useCurrentLevel } from '@/contexts/CurrentLevelContext'
 import { useCoins } from '@/contexts/CoinsContext'
 import { useUser } from '@/contexts/UserContext'
+import { useSound } from '@/contexts/SoundContext'
 
 const checkIfWordExists = async (word) => {
   const url = `/api/dictionary?word=${word}`
@@ -28,6 +29,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
   const [currentLevel, nextLevel] = [levels[level - 1], levels[level]]
   const { coins, coinsToAdd, setCoinsToAdd, setCoinsObtained } = useCoins()
   const { currentUser } = useUser()
+  const { unableSound } = useSound()
 
   const updateInput = (e, index) => {
     const character = e.target.value
@@ -96,6 +98,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
         inputRefs.current[searchAvailableInput(word.length, 'toBack', checkCharacters(word.toLowerCase(), characters))].focus()
       } else {
         handleClues(4)
+        unableSound()
       }
     } else {
       handleClues(0)
