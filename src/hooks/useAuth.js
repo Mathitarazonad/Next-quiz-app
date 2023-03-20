@@ -130,7 +130,7 @@ export default function useAuth () {
     try {
       await confirmNewPasswordReset(code, password)
       setSuccessMessage('Password reset successful')
-      setTimeout(router.replace('/login'), 500)
+      setDisableSubmit(true)
     } catch (error) {
       setError(getUserValidationError(error))
     }

@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
 import SuccessAlert from '@/components/RegisterComponents/SuccessAlert'
+import Link from 'next/link'
 
 export default function RegisterPage () {
   const oobCode = useSearchParams().get('oobCode')
@@ -58,7 +59,8 @@ export default function RegisterPage () {
             isSignUp message='Confirm your new password'
             inputName='passwordConfirmation'
           />
-          <SubmitButton isDisabled={disableSubmit}>Continue</SubmitButton>
+          {!disableSubmit ? <SubmitButton>Reset</SubmitButton>
+            : <Link href='/login' className='bg-violet-500 bg-opacity-90 w-full py-[6px] rounded-md text-white text-sm font-semibold text-center hover:bg-violet-400 duration-300'>Continue</Link>}
         </form>
       </div>
     )
