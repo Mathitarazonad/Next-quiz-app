@@ -27,7 +27,7 @@ export default function RegisterPage () {
         </h1>
         <p className='text-semi-dark-violet text-sm'>
           Already have an account?
-          <Link href='/login' className='text-purple-500 font-bold'>
+          <Link href='/login' className='text-purple-500 font-bold cursor-pointer'>
             {' '}Sign In
           </Link>
         </p>

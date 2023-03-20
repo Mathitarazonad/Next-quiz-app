@@ -27,7 +27,7 @@ export default function LoginPage () {
         </h1>
         <p className='text-semi-dark-violet text-sm'>
           Don't have an account yet?
-          <Link href='/register' className='text-purple-500 font-bold'>
+          <Link href='/register' className='text-purple-500 font-bold cursor-pointer'>
             {' '}Sign Up
           </Link>
         </p>

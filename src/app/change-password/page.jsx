@@ -26,7 +26,7 @@ export default function PasswordChangePage () {
         </h1>
         <p className='text-semi-dark-violet text-sm'>
           I don't think it anymore,
-          <a className='text-purple-500 font-bold' onClick={() => router.back()}>
+          <a className='text-purple-500 font-bold cursor-pointer' onClick={() => router.back()}>
             {' '}go back
           </a>
         </p>
