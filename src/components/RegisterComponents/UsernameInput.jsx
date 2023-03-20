@@ -12,6 +12,7 @@ export default function UsernameInput () {
           name='username'
           placeholder='Username'
           required
+          minLength={5}
         />
       </div>
     </div>
