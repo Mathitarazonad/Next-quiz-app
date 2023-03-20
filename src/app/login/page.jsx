@@ -10,7 +10,7 @@ import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function LoginPage () {
-  const { error, handleCloseError, hiddenPassword, setHiddenPassword, handleSignIn } = useAuth()
+  const { error, handleCloseError, disableSubmit, hiddenPassword, setHiddenPassword, handleSignIn } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -41,7 +41,7 @@ export default function LoginPage () {
           <EmailInput message='Enter your email' />
           <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} message='Enter your password' />
           <Link href='/forgot-password' className='text-semi-dark-violet text-xs font-semibold -mt-4 text-end w-full'>Forgot password?</Link>
-          <SubmitButton>Sign In</SubmitButton>
+          <SubmitButton isDisabled={disableSubmit}>Sign In</SubmitButton>
         </form>
       </div>
     </ProtectedRoutes>

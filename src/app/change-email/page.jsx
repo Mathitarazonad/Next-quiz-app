@@ -9,7 +9,7 @@ import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function EmailChangePage () {
-  const { error, handleCloseError, hiddenPassword, setHiddenPassword, handleEmailChange } = useAuth()
+  const { error, handleCloseError, disableSubmit, hiddenPassword, setHiddenPassword, handleEmailChange } = useAuth()
   const router = useRouter()
 
   const handleSubmit = (e) => {
@@ -41,7 +41,7 @@ export default function EmailChangePage () {
           <PasswordInput hiddenPassword={hiddenPassword} setHiddenPassword={setHiddenPassword} message='Current password' inputName='currentPassword' />
           <EmailInput message='Enter a new email' inputName='newEmail' />
           <EmailInput message='Confirm your new email' inputName='newEmailConfirmation' />
-          <SubmitButton>Change email</SubmitButton>
+          <SubmitButton isDisabled={disableSubmit}>Change email</SubmitButton>
         </form>
       </div>
     </ProtectedRoutes>

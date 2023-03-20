@@ -10,7 +10,7 @@ import UsernameInput from '@/components/RegisterComponents/UsernameInput'
 import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function RegisterPage () {
-  const { error, handleCloseError, handleSignUp, hiddenPassword, setHiddenPassword } = useAuth()
+  const { error, handleCloseError, disableSubmit, handleSignUp, hiddenPassword, setHiddenPassword } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -51,7 +51,7 @@ export default function RegisterPage () {
             isSignUp message='Confirm your password'
             inputName='passwordConfirmation'
           />
-          <SubmitButton>Sign Up</SubmitButton>
+          <SubmitButton isDisabled={disableSubmit}>Sign Up</SubmitButton>
         </form>
       </div>
     </ProtectedRoutes>

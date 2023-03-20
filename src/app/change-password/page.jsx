@@ -8,7 +8,7 @@ import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import AppLogo from '@/components/MenuComponents/AppLogo'
 
 export default function PasswordChangePage () {
-  const { error, handleCloseError, hiddenPassword, setHiddenPassword, handlePasswordChange } = useAuth()
+  const { error, handleCloseError, disableSubmit, hiddenPassword, setHiddenPassword, handlePasswordChange } = useAuth()
   const router = useRouter()
 
   const handleSubmit = (e) => {
@@ -56,7 +56,7 @@ export default function PasswordChangePage () {
             message='Confirm your new password'
             inputName='newPasswordConfirmation'
           />
-          <SubmitButton>Change password</SubmitButton>
+          <SubmitButton isDisabled={disableSubmit}>Change password</SubmitButton>
         </form>
       </div>
     </ProtectedRoutes>
