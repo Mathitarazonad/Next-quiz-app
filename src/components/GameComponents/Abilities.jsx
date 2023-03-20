@@ -11,11 +11,11 @@ export default function Abilities({ level, difficulty }) {
   const { coins, setCoins } = useCoins()
   const { currentUser } = useUser()
   const { levels } = useLevels()
-  const { coinDropSound, abilityUnableSound } = useSound()
+  const { coinDropSound, unableSound } = useSound()
 
   const handleAbility = (cost, ability) => {
     if (usedAbilities.includes(ability) || coins < cost || (completedWords[currentWord]) || levels[level - 1].completedDifficulties.includes(difficulty)) {
-      abilityUnableSound()
+      unableSound()
       return
     }
 
