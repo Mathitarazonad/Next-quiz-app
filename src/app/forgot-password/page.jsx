@@ -6,6 +6,7 @@ import SubmitButton from '@/components/RegisterComponents/SubmitButton'
 import ProtectedRoutes from '@/components/RegisterComponents/ProtectedRoutes'
 import AppLogo from '@/components/MenuComponents/AppLogo'
 import SuccessAlert from '@/components/RegisterComponents/SuccessAlert'
+import Link from 'next/link'
 
 export default function RegisterPage () {
   const { error, successMessage, disableSubmit, handleCloseError, handlePasswordForgot } = useAuth()
@@ -23,6 +24,12 @@ export default function RegisterPage () {
         <h1 className='text-3xl font-bold text-dark-violet-title -mt-5 text-center'>
           Forgot Password
         </h1>
+        <p className='text-semi-dark-violet text-sm'>
+          Don't have an account yet?
+          <Link href='/register' className='text-purple-500 font-bold cursor-pointer'>
+            {' '}Sign Up
+          </Link>
+        </p>
 
         {error && <Alert message={error} handleCloseError={handleCloseError} />}
         {successMessage && <SuccessAlert message={successMessage} />}
