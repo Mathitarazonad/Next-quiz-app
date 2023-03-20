@@ -23,6 +23,11 @@ export default function useAuth () {
     }
   }
 
+  const temporalSubmitDisable = () => {
+    setDisableSubmit(true)
+    setTimeout(() => setDisableSubmit(false), 3000)
+  }
+
   const handleSignUp = async (username, email, password, passwordConfirmation) => {
     if (disableSubmit) {
       return
@@ -44,9 +49,10 @@ export default function useAuth () {
     }
 
     try {
-      setDisableSubmit(true)
       await signUp(username, email, password)
+      setDisableSubmit(true)
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error.code))
     }
   }
@@ -61,9 +67,10 @@ export default function useAuth () {
     }
 
     try {
-      setDisableSubmit(true)
       await signIn(email, password)
+      setDisableSubmit(true)
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error.code))
     }
   }
@@ -92,9 +99,10 @@ export default function useAuth () {
     }
 
     try {
-      setDisableSubmit(true)
       await changeEmail(currentPassword, newEmail)
+      setDisableSubmit(true)
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error.code))
     }
   }
@@ -119,9 +127,10 @@ export default function useAuth () {
     }
 
     try {
-      setDisableSubmit(true)
       await changePassword(currentPassword, newPassword)
+      setDisableSubmit(true)
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error.code))
     }
   }
@@ -140,6 +149,7 @@ export default function useAuth () {
       setDisableSubmit(true)
       setSuccessMessage('Mail sent successfully, check it for further instructions')
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error))
     }
   }
@@ -163,6 +173,7 @@ export default function useAuth () {
       setSuccessMessage('Password reset successful')
       setDisableSubmit(true)
     } catch (error) {
+      temporalSubmitDisable()
       setError(getUserValidationError(error))
     }
   }
