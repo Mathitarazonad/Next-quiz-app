@@ -5,7 +5,7 @@ import { useSound } from '@/contexts/SoundContext'
 import Link from 'next/link'
 
 export default function MenuIcons() {
-  const { soundActive, setSoundActive } = useSound()
+  const { soundActive, setSoundActive, muteSound } = useSound()
 
   const handleShare = () => {
     navigator.clipboard.writeText('Copied game URL')
@@ -13,6 +13,9 @@ export default function MenuIcons() {
 
   const handleSound = (mode) => {
     setSoundActive(mode)
+    if (!mode) {
+      muteSound()
+    }
   }
 
   return (

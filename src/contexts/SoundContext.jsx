@@ -41,9 +41,16 @@ export default function SoundProvider({ children }) {
     }
   }
 
+  const muteSound = () => {
+    const sound = new Audio('/sounds/mute.mp3')
+    sound.volume = 0.5
+    sound.playbackRate = 1
+    sound.play()
+  }
+
   const value = {
     soundActive, setSoundActive,
-    coinGainSound, starCollectionSound, coinDropSound, unableSound
+    coinGainSound, starCollectionSound, coinDropSound, unableSound, muteSound
   }
 
   return (
