@@ -8,7 +8,7 @@ export default function CurrentLevelProvider ({ children }) {
   const [completedWords, setCompletedWords] = useState(Array(5).fill(false))
   const [alertAtLeaving, setAlertAtLeaving] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  // 1-Reveal half of the word  2-Reveal a random word  3-Reveal the current word
+  // Abilities: 1-Reveal some letters  2-Reveal a random word  3-Reveal the current word
   const [abilityToUse, setAbilityToUse] = useState(0)
   const [usedAbilities, setUsedAbilities] = useState([])
   const [currentWord, setCurrentWord] = useState(null)
