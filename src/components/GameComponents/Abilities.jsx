@@ -14,7 +14,7 @@ export default function Abilities({ level, difficulty }) {
   const { coinDropSound, unableSound } = useSound()
 
   const handleAbility = (cost, ability) => {
-    if (usedAbilities.includes(ability) || coins < cost || (completedWords[currentWord]) || levels[level - 1].completedDifficulties.includes(difficulty)) {
+    if (usedAbilities.includes(ability) || coins < cost || (completedWords[currentWord] && ability !== 2) || levels[level - 1].completedDifficulties.includes(difficulty)) {
       unableSound()
       return
     }
