@@ -28,7 +28,7 @@ export default function HowToPlayPage() {
               </li>
               <li className='text-sm font-medium text-semi-dark-violet'>
                 2. You need to enter existing words. When the word doesn't exists.
-                <Image src='/imgs/word-not-exists.PNG' width={150} height={150} alt='Abilities image' className='h-2/3 w-2/3' />
+                <Image src='/imgs/word-not-exists.PNG' width={150} height={150} alt="Word doesn\'t exists" className='h-2/3 w-2/3' />
               </li>
               <li className='text-sm font-medium text-semi-dark-violet flex items-center gap-[6px]'>
                 3. Letter not in is the word:
@@ -40,7 +40,7 @@ export default function HowToPlayPage() {
               </li>
               <li className='text-sm font-medium text-semi-dark-violet flex items-center gap-3'>
                 5. Letter correctly placed:
-                <Image src='/imgs/correct-letter.PNG' width={45} height={45} alt='Letter wrong placed image' />
+                <Image src='/imgs/correct-letter.PNG' width={45} height={45} alt='Letter correctly placed image' />
               </li>
             </ul>
           </div>
