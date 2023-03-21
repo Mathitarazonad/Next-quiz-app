@@ -97,6 +97,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
         setCharClues(checkCharacters(word.toLowerCase(), characters))
         inputRefs.current[searchAvailableInput(word.length, 'toBack', checkCharacters(word.toLowerCase(), characters))].focus()
       } else {
+        // Give clues that the word doesn't exist
         handleClues(4)
         unableSound()
       }
@@ -157,9 +158,10 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
 
   // ===============Secondary functions===============
   const handleWords = () => {
-    const newCompletedWords = [...completedWords]
     const currentDifficulty = difficulty === 1 ? 'easy' : difficulty === 2 ? 'medium' : 'hard'
     const wordIndex = levelsData[level - 1][currentDifficulty].indexOf(word)
+
+    const newCompletedWords = [...completedWords]
     newCompletedWords[wordIndex] = true
     setCompletedWords(newCompletedWords)
 
@@ -230,23 +232,16 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     const incompletedWords = completedWords.map((word, i) => i)
       .filter((word, i) => !completedWords[i])
     const randomWord = incompletedWords[Math.round(Math.random() * (incompletedWords.length - 1))]
-    const newCompletedWords = [...completedWords]
-    newCompletedWords[randomWord] = true
-    setCompletedWords(newCompletedWords)
 
-    if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
-      completeDifficulty()
+    if (randomWord === wordIndex) {
+      const newCharacters = characters.map((chr, index) => word[index])
+      setCharacters(newCharacters)
     }
   }
 
   const handleThirdAbility = () => {
-    const newCompletedWords = [...completedWords]
-    newCompletedWords[currentWord] = true
-    setCompletedWords(newCompletedWords)
-
-    if (completedWords.filter(wordCompleted => wordCompleted).length === 4 && !currentLevel.completedDifficulties.includes(difficulty)) {
-      completeDifficulty()
-    }
+    const newCharacters = characters.map((chr, index) => word[index])
+    setCharacters(newCharacters)
   }
 
   useEffect(() => {
@@ -260,7 +255,7 @@ export const useWord = ({ word, wordIndex, level, difficulty }) => {
     if (abilityToUse === 2) {
       handleSecondAbility()
     }
-    if (abilityToUse === 3) {
+    if (abilityToUse === 3 && currentWord === wordIndex) {
       handleThirdAbility()
     }
     setAbilityToUse(null)
