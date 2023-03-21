@@ -9,6 +9,7 @@ import LeavingAlert from '../MenuComponents/LeavingAlert'
 
 export default function Words ({ level, difficulty }) {
   const words = levelsData[level - 1][difficulty]
+  const currentDifficulty = difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3
   const { difficultyPassed } = useLevels()
   const { showAlert } = useCurrentLevel()
 
@@ -22,15 +23,13 @@ export default function Words ({ level, difficulty }) {
               wordIndex={index}
               key={word}
               level={level}
-              difficulty={
-                difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3
-              }
+              difficulty={currentDifficulty}
             />
           ))}
         </div>
-        <Abilities level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />
+        <Abilities level={level} difficulty={currentDifficulty} />
       </div>
-      {difficultyPassed && <DifficultyReward level={level} difficulty={difficulty === 'easy' ? 1 : difficulty === 'medium' ? 2 : 3} />}
+      {difficultyPassed && <DifficultyReward level={level} difficulty={currentDifficulty} />}
       {showAlert && <LeavingAlert />}
     </>
   )
