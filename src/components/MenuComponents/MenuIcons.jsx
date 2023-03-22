@@ -8,7 +8,7 @@ export default function MenuIcons() {
   const { soundActive, setSoundActive, muteSound } = useSound()
 
   const handleShare = () => {
-    navigator.clipboard.writeText('Copied game URL')
+    navigator.clipboard.writeText('next-quiz-app-mathitarazonad.vercel.app')
   }
 
   const handleSound = (mode) => {
