@@ -1,4 +1,4 @@
-#Next 13 - Word Quiz App
+# Next 13 - Word Quiz App
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -8,7 +8,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Overview](#overview)
 - [About the App](#about-the-app)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
+  - [Designs](#designs)
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
@@ -26,13 +26,17 @@ This is an game application based on [Wordle](https://wordlegame.org/) and [Cody
 The challenges that I proposed to my self are:
 
 - Make the game to be played on any device.
-- Use **tailwindCss**.
+- Use a **CSS framework**.
 - Implement a system of **authentication**.
 - Implement a **levels system** of progression.
 - Implement a service of **database** to store users game data.
 - Implement **abilities** to help the user during the different levels.
 
-### Screenshot
+### Designs
+
+  <img src=./designs/menu-design.PNG style="width: 400px; heigth: 680px" />
+  <img src=./designs/profile-design.PNG style="width: 400px; heigth: 500px" />
+  <img src=./designs/level-design.PNG style="width: 400px; heigth: 680px" />
 
 
 ### Links
@@ -57,17 +61,19 @@ The challenges that I proposed to my self are:
 
 ### What I learned
 
-*"Use this section to recap over some of your major learnings while working through this project."*
+***"Use this section to recap over some of your major learnings while working through this project."***
 
 This is my first project using Next, and I also decided to implement the experimental features of Next 13 in this case, like the **app directory**. I used this project lo learn about the Next framework and how it works, but I realized that Next 13 is not a stable version to use yet, but it has incredible features that I liked.
 
+Also this is my first project with the **Tailwind** CSS framework, and I need to say that I fell in love with this framework, I think that without using it in this project, it probably would have taken a lot of more time to style the entire application, it is so comfortable and easy to use if you have the necessary knowledge in CSS, this is the first time I used it and I learned it so fast, if I had to do some little fixes I only went to the classNames and change some things, the only problem is the large classNames that you have in your components but I think that if you have a good structured project, this shouldn't be a big problem.
+
 ### Continued development
 
-*"Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect."*
+***"Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect."***
 
 Now that I entered the world of frameworks like Next, I need to study more about the types of rendering and study which one is the appropriate according with the type of the page that I want to develop. And of course I need to continue studying frameworks like Next and other technologies.
 
 ## Author
 
-- [Frontend Mentor](https://www.frontendmentor.io/profile/Mathitarazonad)
-- [GitHub](https://github.com/Mathitarazonad)
+- [@MathiTarazonad - Frontend Mentor](https://www.frontendmentor.io/profile/Mathitarazonad)
+- [@Mathitarazonad - GitHub](https://github.com/Mathitarazonad)
