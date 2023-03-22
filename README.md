@@ -51,8 +51,8 @@ The challenges that I proposed to my self are:
 
 ### Links
 
-- [Solution URL](https://github.com/Mathitarazonad/Next-quiz-app): https://github.com/Mathitarazonad/Weather-App
-- Live Site URL: https://weather-appmt.vercel.app/
+- Solution URL: https://github.com/Mathitarazonad/Next-quiz-app
+- Live Site URL: https://next-quiz-app-mathitarazonad.vercel.app
 
 ## My process
 
