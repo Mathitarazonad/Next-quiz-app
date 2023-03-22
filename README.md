@@ -2,19 +2,29 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Set Up
+1. **Clone the repository localy:**<br><code>git clone https://github.com/Mathitarazonad/Next-quiz-app.git</code>
+<br>
+2. **Install all the dependencies:**<br><code>npm install</code>
+<br>
+3. **Start a development server:**<br><code>npm run start</code>
+
+
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
-- [Overview](#overview)
-- [About the App](#about-the-app)
-  - [The challenge](#the-challenge)
-  - [Designs](#designs)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-- [Author](#author)
+- [Next 13 - Word Quiz App](#next-13---word-quiz-app)
+  - [Set Up](#set-up)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+  - [About the App](#about-the-app)
+    - [The challenge](#the-challenge)
+    - [Designs](#designs)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+    - [Continued development](#continued-development)
+  - [Author](#author)
 
 ## Overview
 
